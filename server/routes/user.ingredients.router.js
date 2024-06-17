@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
     console.log('is authenticated?', req.isAuthenticated());
     console.log('user', req.user);
     {
-        let queryText = `SELECT user_ingredients.id AS user_ing_id, ingredients.name, ingredients.id
+        let queryText = `SELECT user_ingredients.id, ingredients.name, ingredients.id AS user_ing_id
 FROM ingredients
 JOIN user_ingredients ON ingredients.id = user_ingredients.ingredients_id
 JOIN "user" ON "user".id = user_ingredients.user_id
@@ -32,6 +32,23 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
 
     try {
         const result = await pool.query(`INSERT INTO "user_ingredients" ("ingredients_id", "user_id") VALUES ($1, $2) RETURNING *;`, [req.body.id, req.user.id]);
+        res.send(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.sendStatus(500);
+    }
+    
+});
+
+router.delete('/', rejectUnauthenticated, async (req, res) => {
+    console.log('/user ingredients DELETE route');
+    console.log('useringredient delete', req.body.ingredients_id);
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('user', req.user);
+
+    try {
+        const result = await pool.query(`DELETE FROM user_ingredients ui
+WHERE ui.ingredients_id = $1 AND ui.user_id = $2 RETURNING *;`, [req.body.ingredients_id, req.user.id]);
         res.send(result.rows[0]);
     } catch (err) {
         console.error(err);

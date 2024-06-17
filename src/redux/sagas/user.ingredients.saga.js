@@ -12,10 +12,11 @@ function* fetchUserIngredients(action) {
 
 function* deleteIngredient(action) {
    try {
-      yield axios.delete('/api/user/ingredients', action.payload);
-      yield put({type: 'FETCH_INGREDIENTS'})
+      yield console.log(action.payload);
+      yield axios.delete('/api/user/ingredients', {data: action.payload});
+      yield put({type: 'FETCH_USER_INGREDIENTS'})
    }  catch (error) {
-      console.error(`Error adding new ingredient`);
+      console.error(`Error deleting  new ingredient`);
     }
 }
 

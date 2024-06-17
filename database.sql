@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS "ingredients" (
 	"id" bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE,
 	"name" text NOT NULL,
 	"measurement" text,
-	"user_id" bigint,
+	"user_id" bigint DEFAULT NULL,
 	PRIMARY KEY ("id")
 );
 
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS "user_ingredients" (
 	"id" bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE,
 	"user_id" bigint NOT NULL,
 	"ingredients_id" bigint NOT NULL,
-	"amount" text NOT NULL,
+	"amount" text DEFAULT 1,
 	PRIMARY KEY ("id")
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS "recipes" (
 	"instructions" text NOT NULL,
 	"favorite" boolean NOT NULL DEFAULT false,
 	"likes" bigint NOT NULL,
-	"user_id" bigint,
+	"user_id" bigint DEFAULT NULL,
 	PRIMARY KEY ("id")
 );
 

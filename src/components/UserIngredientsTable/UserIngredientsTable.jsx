@@ -14,7 +14,7 @@ function UserIngredientsTable() {
 
      function handleDelete(ingId) {
         console.log(ingId)
-        // dispatch({type: 'DELETE_INGREDIENT', payload: ingId })
+        dispatch({type: 'DELETE_INGREDIENT', payload: {ingredients_id: ingId} })
      }
 
   return (
@@ -28,7 +28,7 @@ function UserIngredientsTable() {
             </thead>
             <tbody>
                 
-                {userIngredients.map((uI) => <tr key={uI.user_ing_id}><td>{uI.name}</td><td><button onClick={()=> handleDelete(uI.id)} >Delete</button></td></tr>)}
+                {userIngredients.map((uI) => <tr key={uI.id}><td>{uI.name}</td><td><button onClick={()=> handleDelete(uI.user_ing_id)} >Delete</button></td></tr>)}
                
                 
             </tbody>
