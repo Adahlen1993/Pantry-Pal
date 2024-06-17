@@ -9,7 +9,6 @@ const passport = require('./strategies/user.strategy');
 
 // Route Includes
 const userRouter = require('./routes/user.router');
-const petRouter = require('./routes/pets.router');
 const ingredientsRouter = require('./routes/ingredients.router');
 const recipesRouter = require('./routes/recipes.router');
 const userIngredientsRouter = require('./routes/user.ingredients.router');

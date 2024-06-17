@@ -1,4 +1,4 @@
-INSERT INTO recipe_type (type_name)
+INSERT INTO recipe_type (name)
 VALUES
     ('French'),
     ('Asian'),
