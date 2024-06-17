@@ -6,6 +6,7 @@ import {
   Switch,
 } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,6 +22,7 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import UserPage from "../UserPage/UserPage";
 import MyPantryPage from "../MyPantry/MyPantryPage";
+import Admin from "../Admin/Admin";
 import "./App.css";
 import Recipes from "../Recipes/Recipes";
 
@@ -63,7 +65,7 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows Pets else shows LoginPage
+            // logged in shows MyPantry page else shows LoginPage
             exact
             path="/mypantry"
           >
@@ -79,11 +81,19 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
+            // logged in shows Recipes page else shows LoginPage
             exact
             path="/recipes"
           >
             <Recipes />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows Admin page else shows LoginPage
+            exact
+            path="/admin"
+          >
+           <Admin />
           </ProtectedRoute>
 
           <Route exact path="/login">

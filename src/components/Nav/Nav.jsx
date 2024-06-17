@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 function Nav() {
   const user = useSelector((store) => store.user);
+  console.log('Nav user', user)
 
   return (
     <div className="nav">
@@ -38,6 +39,32 @@ function Nav() {
 
             <Link className="navLink" to="/mypantry">
               MyPantry
+            </Link>
+
+            <LogOutButton className="navLink" />
+          </>
+        )}
+         {/* If a user is logged in, show these links */}
+         {user.id && user.admin &&  (
+          <>
+            <Link className="navLink" to="/user">
+              Home
+            </Link>
+
+            <Link className="navLink" to="/info">
+              Info Page
+            </Link>
+
+            <Link className="navLink" to="/recipes">
+              Recipes
+            </Link>
+
+            <Link className="navLink" to="/mypantry">
+              MyPantry
+            </Link>
+
+            <Link className="navLink" to="/admin">
+              Admin
             </Link>
 
             <LogOutButton className="navLink" />
