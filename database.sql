@@ -1,3 +1,4 @@
+
 -- USER is a reserved keyword with Postgres
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
@@ -59,14 +60,14 @@ CREATE TABLE IF NOT EXISTS "recipes_ingredients" (
 	PRIMARY KEY ("id")
 );
 
-ALTER TABLE "ingredients" ADD CONSTRAINT "ingredients_fk3" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+ALTER TABLE "ingredients" ADD CONSTRAINT "ingredients_fk3" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
-ALTER TABLE "user_ingredients" ADD CONSTRAINT "user_ingredients_fk1" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+ALTER TABLE "user_ingredients" ADD CONSTRAINT "user_ingredients_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 ALTER TABLE "user_ingredients" ADD CONSTRAINT "user_ingredients_fk2" FOREIGN KEY ("ingredients_id") REFERENCES "ingredients"("id");
 ALTER TABLE "recipes" ADD CONSTRAINT "recipes_fk1" FOREIGN KEY ("recipe_type") REFERENCES "recipe_type"("id");
 
-ALTER TABLE "Favorites" ADD CONSTRAINT "Favorites_fk1" FOREIGN KEY ("user_id") REFERENCES "users"("id");
+ALTER TABLE "Favorites" ADD CONSTRAINT "Favorites_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
 ALTER TABLE "Favorites" ADD CONSTRAINT "Favorites_fk2" FOREIGN KEY ("recipe_id") REFERENCES "recipes"("id");
 ALTER TABLE "recipes_ingredients" ADD CONSTRAINT "recipes_ingredients_fk1" FOREIGN KEY ("recipe_id") REFERENCES "recipes"("id");
