@@ -1,34 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
-  HashRouter as Router,
   Redirect,
   Route,
+  HashRouter as Router,
   Switch,
-} from 'react-router-dom';
+} from "react-router-dom";
+import "semantic-ui-css/semantic.min.css";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
+import Footer from "../Footer/Footer";
+import Nav from "../Nav/Nav";
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-
-import './App.css';
+import AboutPage from "../AboutPage/AboutPage";
+import InfoPage from "../InfoPage/InfoPage";
+import LandingPage from "../LandingPage/LandingPage";
+import LoginPage from "../LoginPage/LoginPage";
+import RegisterPage from "../RegisterPage/RegisterPage";
+import UserPage from "../UserPage/UserPage";
+import MyPantryPage from "../MyPantry/MyPantryPage";
+import "./App.css";
+import Recipes from "../Recipes/Recipes";
 
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector(store => store.user);
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
   return (
@@ -61,6 +63,14 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
+            // logged in shows Pets else shows LoginPage
+            exact
+            path="/mypantry"
+          >
+            <MyPantryPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
             path="/info"
@@ -68,46 +78,45 @@ function App() {
             <InfoPage />
           </ProtectedRoute>
 
-          <Route
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
             exact
-            path="/login"
+            path="/recipes"
           >
-            {user.id ?
-              // If the user is already logged in, 
+            <Recipes />
+          </ProtectedRoute>
+
+          <Route exact path="/login">
+            {user.id ? (
+              // If the user is already logged in,
               // redirect to the /user page
               <Redirect to="/user" />
-              :
+            ) : (
               // Otherwise, show the login page
               <LoginPage />
-            }
+            )}
           </Route>
 
-          <Route
-            exact
-            path="/registration"
-          >
-            {user.id ?
-              // If the user is already logged in, 
+          <Route exact path="/registration">
+            {user.id ? (
+              // If the user is already logged in,
               // redirect them to the /user page
               <Redirect to="/user" />
-              :
+            ) : (
               // Otherwise, show the registration page
               <RegisterPage />
-            }
+            )}
           </Route>
 
-          <Route
-            exact
-            path="/home"
-          >
-            {user.id ?
-              // If the user is already logged in, 
+          <Route exact path="/home">
+            {user.id ? (
+              // If the user is already logged in,
               // redirect them to the /user page
               <Redirect to="/user" />
-              :
+            ) : (
               // Otherwise, show the Landing page
               <LandingPage />
-            }
+            )}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
