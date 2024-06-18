@@ -7,14 +7,13 @@ export default function MyPantryPage () {
 
     const dispatch = useDispatch();
 
-    const searchIngredients = e => {
-       dispatch({type: 'SEARCH_INGREDIENTS', payload: e.target.value}) 
-    }
+    const recipes = useSelector((store) => store.recipes);
 
 
     return (
 
         <>
+        <h3>Recipe Count: {recipes.length}</h3>
         <DropdownSearch/>
         <UserIngredientsTable/>
         </>

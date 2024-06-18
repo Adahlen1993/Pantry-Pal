@@ -11,8 +11,10 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const ingredientsRouter = require('./routes/ingredients.router');
 const recipesRouter = require('./routes/recipes.router');
+const recipePageRouter = require('./routes/recipe.page.router');
 const userIngredientsRouter = require('./routes/user.ingredients.router');
 const allUserRouter = require('./routes/all.user.router');
+
 
 
 // Express Middleware
@@ -31,7 +33,8 @@ app.use('/api/user', userRouter);
 app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/recipes', recipesRouter);
 app.use('/api/user/ingredients', userIngredientsRouter);
-app.use('/api/user/all', allUserRouter)
+app.use('/api/user/all', allUserRouter);
+app.use('/api/recipe/:id', recipePageRouter);
 
 
 // Listen Server & Port

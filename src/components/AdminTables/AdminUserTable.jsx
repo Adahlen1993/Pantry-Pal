@@ -14,11 +14,10 @@ function AdminUserTable() {
         dispatch({type: 'FETCH_ALL_USER'})
      }, []);
   const allUser = useSelector((store) => store.allUser);
-  const [editUsername, setEditUsername] = useState();
-  const [editPassword, setEditPassword] = useState();
+  const [editUsername, setEditUsername] = useState('');
   const [editUserAdmin, setEditUserAdmin] = useState(false);
-  const [clickedUserId, setClickedUserId] = useState();
-  const [show, setShow] = useState('false');
+  const [clickedUserId, setClickedUserId] = useState(0);
+  const [show, setShow] = useState(false);
 
 
   const handleClose = () => {

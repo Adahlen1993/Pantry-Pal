@@ -10,6 +10,7 @@ function UserIngredientsTable() {
         dispatch({type: 'FETCH_USER_INGREDIENTS'})
      }, []);
   const userIngredients = useSelector((store) => store.userIngredients);
+  console.log(userIngredients)
   const [heading, setHeading] = useState('Functional Component');
 
      function handleDelete(ingId) {
@@ -28,7 +29,7 @@ function UserIngredientsTable() {
             </thead>
             <tbody>
                 
-                {userIngredients.map((uI) => <tr key={uI.id}><td>{uI.name}</td><td><button onClick={()=> handleDelete(uI.user_ing_id)} >Delete</button></td></tr>)}
+                {userIngredients.length === 0 ? <tr><td>No Ingredients</td></tr> : userIngredients.map((uI) => <tr key={uI.id}><td>{uI.name}</td><td><button onClick={()=> handleDelete(uI.user_ing_id)} >Delete</button></td></tr>)}
                
                 
             </tbody>

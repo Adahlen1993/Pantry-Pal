@@ -16,7 +16,8 @@ console.log('ingredients', ingredients)
 
 const handleSubmit = e => {
     e.preventDefault();
-    dispatch({type: 'ADD_INGREDIENT', payload: selectIngredient})
+    dispatch({type: 'ADD_INGREDIENT', payload: selectIngredient});
+    dispatch({type: 'FETCH_RECIPES'});
     
 }
 
