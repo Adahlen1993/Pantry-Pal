@@ -7,6 +7,7 @@ import recipesSaga from './recipes.saga';
 import userIngredientsSaga from './user.ingredients.saga';
 import allUserSaga from './all.user.saga';
 import recipePage from './recipe.page.saga';
+import sprecipesSaga from './sprecipes.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -25,5 +26,6 @@ export default function* rootSaga() {
     userIngredientsSaga(),
     allUserSaga(),
     recipePage(),
+    sprecipesSaga(),
   ]);
 }

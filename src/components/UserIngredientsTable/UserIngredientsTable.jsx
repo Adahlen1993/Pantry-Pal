@@ -29,7 +29,7 @@ function UserIngredientsTable() {
             </thead>
             <tbody>
                 
-                {userIngredients.length === 0 ? <tr><td>No Ingredients</td></tr> : userIngredients.map((uI) => <tr key={uI.id}><td>{uI.name}</td><td><button onClick={()=> handleDelete(uI.user_ing_id)} >Delete</button></td></tr>)}
+                {userIngredients.length === 0 ? <tr><td>No Ingredients</td></tr> : userIngredients.map((uI) => <tr key={uI.id}><td>{uI.name} id:{uI.user_ing_id}</td><td><button onClick={()=> handleDelete(uI.user_ing_id)} >Delete</button></td></tr>)}
                
                 
             </tbody>

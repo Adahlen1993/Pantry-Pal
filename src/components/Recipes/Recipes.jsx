@@ -15,7 +15,8 @@ const history = useHistory();
      const recipes = useSelector((store) => store.recipes);
      const userIngredients = useSelector((store) => store.userIngredients);
      const [heading, setHeading] = useState('Functional Component');
- 
+     console.log('Spoontacular recipe', recipes)
+
      function displayRecipe (id) {
       dispatch({type: 'FETCH_RECIPE_PAGE'})
       history.push(`recipe/${id}`)
