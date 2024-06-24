@@ -25,6 +25,20 @@ HAVING COUNT(DISTINCT ri.ingredients_id) = (SELECT COUNT(*) FROM recipes_ingredi
     });
 });
 
+router.get('/all', rejectUnauthenticated, (req, res) => {
+    console.log('/pet GET route');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('user', req.user);
+    let queryText = `SELECT * FROM recipes;
+`;
+    pool.query(queryText ).then((result) => {
+        res.send(result.rows);
+    }).catch((error) => {
+        console.log(error);
+        res.sendStatus(500);
+    });
+});
+
 // This route *should* add a pet for the logged in user
 router.post('/', rejectUnauthenticated, async (req, res) => {
     console.log('/pet POST route');

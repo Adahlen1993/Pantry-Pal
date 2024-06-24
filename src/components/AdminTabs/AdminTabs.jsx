@@ -1,6 +1,7 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import AdminUserTable from '../AdminTables/AdminUserTable';
+import AdminRecipesTable from '../AdminTables/AdminRecipesTable';
 
 function AdminTabs() {
   return (
@@ -13,7 +14,7 @@ function AdminTabs() {
         <AdminUserTable />
       </Tab>
       <Tab eventKey="recipes" title="Recipes">
-        Tab content for Profile
+       <AdminRecipesTable/>
       </Tab>
       <Tab eventKey="ingredients" title="ingredients">
         Tab content for Contact

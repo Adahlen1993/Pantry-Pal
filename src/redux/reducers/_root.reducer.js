@@ -6,7 +6,7 @@ import ingredients from './ingredients.reducer';
 import userIngredients from './user.ingredients.reducer';
 import allUser from './all.user.reducer';
 import recipePage from './recipe.page.reducer';
-import sprecipesReducer from './sprecipes.reducer';
+import allRecipesReducer from './all.recipes.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -22,7 +22,7 @@ const rootReducer = combineReducers({
   userIngredients,
   allUser,
   recipePage,
-  sprecipesReducer,
+ allRecipesReducer,
  
 });
 

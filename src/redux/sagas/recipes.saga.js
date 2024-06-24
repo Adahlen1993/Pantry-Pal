@@ -10,6 +10,15 @@ function* fetchRecipes(action) {
   }
 }
 
+function* fetchAllRecipes(action) {
+  try {
+    const response = yield axios.get('/api/recipes');
+    yield put({ type: 'SET_RECIPES', payload: response.data });
+  } catch (error) {
+    console.error(`Error getting recipe`);
+  }
+}
+
 
 function* addRecipes(action) {
    try {
@@ -23,6 +32,7 @@ function* addRecipes(action) {
 function* recipesSaga() {
   yield takeLatest('FETCH_RECIPES', fetchRecipes);
   yield takeLatest('ADD_RECIPES', addRecipes);
+  yield takeLatest('FETCH_ALL_RECIPES', fetchAllRecipes)
 }
 
 export default recipesSaga;
