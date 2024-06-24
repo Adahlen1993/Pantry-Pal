@@ -18,6 +18,7 @@ const recipePageRouter = require('./routes/recipe.page.router');
 const userIngredientsRouter = require('./routes/user.ingredients.router');
 const allUserRouter = require('./routes/all.user.router');
 const spoonacularRouter = require('./routes/spoonacular.router');
+const recipeTypeRouter = require('./routes/recipe.type.router')
 
 
 
@@ -43,6 +44,7 @@ app.use('/api/user/ingredients', userIngredientsRouter);
 app.use('/api/user/all', allUserRouter);
 app.use('/api/recipe', recipePageRouter);
 app.use('/api/sprecipe', spoonacularRouter);
+app.use('/api/recipetype', recipeTypeRouter);
 
 
 // Listen Server & Port

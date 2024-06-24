@@ -25,11 +25,28 @@ HAVING COUNT(DISTINCT ri.ingredients_id) = (SELECT COUNT(*) FROM recipes_ingredi
     });
 });
 
+router.put('/', rejectUnauthenticated, async (req, res) => {
+    console.log('user',req.user);
+  
+    try{
+      const result = await pool.query(
+        `UPDATE "recipes"
+        SET "recipe_name" = $1, "recipe_type" = $2, description = $3, instructions = $4, likes = $5, image = $6, user_id = $7, preptime = $8, waittime = $9, cooktime = $10, recipe_ingredients_list = $11
+        WHERE "recipes".id = $12`, [req.body.recipe_name, req.body.recipe_type, req.body.description, req.body.instructions, req.body.likes, req.body.image, req.body.user_id, req.body.preptime, req.body.waittime, req.body.cooktime, req.body.recipe_ingredients_list, req.body.id]
+      );
+      res.send(result.rows[0]);
+    } catch (err) {
+      console.error(err);
+      res.sendStatus(500);
+    }
+    // endpoint functionality
+  });
+
 router.get('/all', rejectUnauthenticated, (req, res) => {
     console.log('/pet GET route');
     console.log('is authenticated?', req.isAuthenticated());
     console.log('user', req.user);
-    let queryText = `SELECT * FROM recipes;
+    let queryText = `SELECT * FROM recipes ORDER BY recipe_name;
 `;
     pool.query(queryText ).then((result) => {
         res.send(result.rows);

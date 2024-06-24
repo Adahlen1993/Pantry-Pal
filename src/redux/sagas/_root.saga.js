@@ -8,6 +8,7 @@ import userIngredientsSaga from './user.ingredients.saga';
 import allUserSaga from './all.user.saga';
 import recipePage from './recipe.page.saga';
 import allRecipesSaga from './all.recipes.saga';
+import recipeTypeSaga from './recipe.type.saga';
 
 
 // rootSaga is the primary saga.
@@ -28,6 +29,7 @@ export default function* rootSaga() {
     allUserSaga(),
     recipePage(),
     allRecipesSaga(),
+    recipeTypeSaga(),
     
     
   ]);
