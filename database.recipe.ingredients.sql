@@ -45,3 +45,42 @@ VALUES
 (4, 562), -- dill
 (4, 1105), -- smoked salmon
 (4, 530); -- cream cheese
+
+INSERT INTO recipes_ingredients (recipe_id, ingredient_id)
+VALUES 
+(5, 454),   -- chocolate
+(5, 1209),  -- vanilla extract
+(5, 900),   -- pecan pieces
+(5, 533),   -- cream of tartar
+(5, 1051),  -- salt
+(5, 587),   -- egg whites
+(5, 1226),  -- water
+(5, 127);   -- heavy cream
+
+INSERT INTO recipes_ingredients (recipe_id, ingredient_id)
+VALUES 
+(6, 881),    -- parsley
+(6, 647),    -- garlic
+(6, 375),    -- butter
+(6, 701),    -- ground nutmeg
+(6, 326),    -- baking powder
+(6, 1051),   -- salt
+(6, 825),    -- milk
+(6, 618),    -- flour
+(6, 623),    -- free range eggs
+(6, 880);    -- parmigiano reggiano
+
+INSERT INTO recipes_ingredients (recipe_id, ingredient_id)
+VALUES 
+(15, 322),   -- bacon
+(15, 339),   -- beef chuck roast
+(15, 340),   -- beef stock
+(15, 342),   -- beer
+(15, 352),   -- black pepper
+(15, 408),   -- carrots
+(15, 575),   -- dried thyme
+(15, 618),   -- flour
+(15, 858),   -- onion
+(15, 965),   -- prunes
+(15, 1051),  -- salt
+(15, 1219);  -- vegetable oil

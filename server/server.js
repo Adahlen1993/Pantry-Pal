@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 require('dotenv').config();
 const PORT = process.env.PORT || 5001;
+const bodyParser = require('body-parser');
+
 
 // Middleware Includes
 const sessionMiddleware = require('./modules/session-middleware');
@@ -21,6 +24,9 @@ const spoonacularRouter = require('./routes/spoonacular.router');
 // Express Middleware
 app.use(express.json());
 app.use(express.static('build'));
+app.use(bodyParser.json());
+app.use(cors());
+
 
 // Passport Session Configuration
 app.use(sessionMiddleware);
@@ -35,7 +41,7 @@ app.use('/api/ingredients', ingredientsRouter);
 app.use('/api/recipes', recipesRouter);
 app.use('/api/user/ingredients', userIngredientsRouter);
 app.use('/api/user/all', allUserRouter);
-app.use('/api/recipe/:id', recipePageRouter);
+app.use('/api/recipe', recipePageRouter);
 app.use('/api/sprecipe', spoonacularRouter);
 
 

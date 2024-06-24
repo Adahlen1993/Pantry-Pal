@@ -25,7 +25,7 @@ import MyPantryPage from "../MyPantry/MyPantryPage";
 import Admin from "../Admin/Admin";
 import "./App.css";
 import Recipes from "../Recipes/Recipes";
-import RecipePage from "../RecipePage/RecipePage";
+import RecipePage from '../RecipePage/RecipePage';
 
 function App() {
   const dispatch = useDispatch();
@@ -96,7 +96,7 @@ function App() {
           >
            <Admin />
           </ProtectedRoute>
-          <ProtectedRoute
+            <ProtectedRoute
             // logged in shows Admin page else shows LoginPage
             exact
             path="/recipe/:id"

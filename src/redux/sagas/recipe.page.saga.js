@@ -4,7 +4,8 @@ import axios from 'axios';
 
 function* fetchRecipePage(action) {
     try {
-      const response = yield axios.get(`/api/recipe/:${action.payload}`);
+      const response = yield axios.get(`/api/recipe/${action.payload.id}`);
+      yield console.log('response', response.data);
       yield put({ type: 'SET_RECIPE_PAGE', payload: response.data });
     } catch (error) {
       console.error(`Error getting recipe`);
