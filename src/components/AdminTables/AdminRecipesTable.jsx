@@ -6,6 +6,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
+import Table from 'react-bootstrap/Table';
 
 function AdminRecipesTable() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function AdminRecipesTable() {
   const recipes = useSelector((store) => store.allRecipesReducer);
   const type = useSelector((store) => store.recipeTypeReducer);
   const [recipeName, setRecipeName] = useState("");
-  const [recipeType, setRecipeType] = useState(0);
+  const [recipeType, setRecipeType] = useState({type_id :0, type_name:''});
   const [recipeDescription, setRecipeDescription] = useState("");
   const [recipeInstructions, setRecipeInstructions] = useState("");
   const [recipeLikes, setRecipeLikes] = useState("");
@@ -36,7 +37,7 @@ function AdminRecipesTable() {
       payload: {
         id: clickedRecipe,
         recipe_name: recipeName,
-        recipe_type: recipeType,
+        recipe_type: recipeType.type_id,
         description: recipeDescription,
         instructions: recipeInstructions,
         likes: recipeLikes,
@@ -48,6 +49,7 @@ function AdminRecipesTable() {
         recipe_ingredients_list: recipeIngredientsList,
       },
     });
+    
   };
   const handleCancel = () => {
     setShow(false);
@@ -77,7 +79,7 @@ function AdminRecipesTable() {
 
   return (
     <div>
-      <table>
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>Name</th>
@@ -97,7 +99,7 @@ function AdminRecipesTable() {
           {recipes.map((recipe) => (
             <tr onClick={() => handleShow(recipe)} key={recipe.id}>
               <td>{recipe.recipe_name}</td>
-              {!recipe.type ? <td>None</td> : <td>{recipe.type}</td>}
+               <td>{recipe.type}</td>
               {!recipe.description ? (
                 <td>None</td>
               ) : (
@@ -114,7 +116,7 @@ function AdminRecipesTable() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Item</Modal.Title>
@@ -223,11 +225,12 @@ function AdminRecipesTable() {
 
           <DropdownButton id="dropdown-basic-button" title="Recipe Type">
             {type.map((t) => (
-              <Dropdown.Item key={t.id} onClick={() => setRecipeType(t.id)}>
+              <Dropdown.Item key={t.id} onClick={() => setRecipeType({type_id: t.id, type_name: t.name})}>
                 {t.name}
               </Dropdown.Item>
             ))}
           </DropdownButton>
+          <h3>Selected Type: {recipeType.type_name}</h3>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCancel}>

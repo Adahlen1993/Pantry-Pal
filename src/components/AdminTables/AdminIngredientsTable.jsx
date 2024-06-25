@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { FloatingLabel } from "react-bootstrap";
+import Table from 'react-bootstrap/Table';
 
 export default function AdminIngredientsTable() {
   const dispatch = useDispatch();
@@ -48,7 +49,7 @@ export default function AdminIngredientsTable() {
     <>
       {/* <AdminDropdownSearch /> */}
       <div>
-        <table>
+      <Table striped bordered hover>
           <thead>
             <tr>
               <th>Ingredients Name</th>
@@ -75,7 +76,7 @@ export default function AdminIngredientsTable() {
               ))
             )}
           </tbody>
-        </table>
+        </Table>
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Item</Modal.Title>

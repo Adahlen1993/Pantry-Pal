@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import Table from 'react-bootstrap/Table';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -43,7 +44,7 @@ function AdminUserTable() {
 
   return (
     <div>
-        <table>
+         <Table striped bordered hover>
             <thead>
                 <tr>
                 <th>username</th>
@@ -58,7 +59,7 @@ function AdminUserTable() {
                
                 
             </tbody>
-        </table>
+        </Table>
         <p>{editUserAdmin}</p>
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

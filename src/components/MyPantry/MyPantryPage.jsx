@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import DropdownSearch from "../DropdownSearch/DropdownSearch";
 import UserIngredientsTable from "../UserIngredientsTable/UserIngredientsTable";
 import MyPantrySwitch from "../MyPantrySwitch/MyPantrySwitch";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function MyPantryPage () {
 
@@ -14,10 +17,13 @@ export default function MyPantryPage () {
     return (
 
         <>
-        <h3>Recipe Count: {recipes.length}</h3>
+       <h1>MyPantry</h1>
+   
+
         <DropdownSearch/>
         <UserIngredientsTable/>
         <MyPantrySwitch/>
+      
         </>
     )
 }

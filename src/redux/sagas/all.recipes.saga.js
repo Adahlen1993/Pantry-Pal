@@ -14,7 +14,7 @@ function* fetchAllRecipes(action) {
 
 function* editRecipe(action) {
     try {
-       yield axios.put(`/api/recipes`, action.payload);
+       yield axios.put(`/api/recipes/all`, action.payload);
        yield put({type: 'FETCH_ALL_RECIPES'})
     }  catch (error) {
        console.error(`Error editing user`);

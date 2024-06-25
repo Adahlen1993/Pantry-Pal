@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import Table from 'react-bootstrap/Table';
 
 // Basic functional component structure for React with default state
 // value setup. When making a new component be sure to replace the
@@ -20,7 +21,7 @@ function UserIngredientsTable() {
 
   return (
     <div>
-        <table>
+        <Table striped bordered hover>
             <thead>
                 <tr>
                 <th>Your Ingredients</th>
@@ -33,7 +34,7 @@ function UserIngredientsTable() {
                
                 
             </tbody>
-        </table>
+        </Table>
     
     </div>
   );

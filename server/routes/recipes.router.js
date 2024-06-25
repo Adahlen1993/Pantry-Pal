@@ -25,7 +25,7 @@ HAVING COUNT(DISTINCT ri.ingredients_id) = (SELECT COUNT(*) FROM recipes_ingredi
     });
 });
 
-router.put('/', rejectUnauthenticated, async (req, res) => {
+router.put('/all', rejectUnauthenticated, async (req, res) => {
     console.log('user',req.user);
   
     try{
