@@ -32,6 +32,40 @@ router.post('/register', (req, res, next) => {
     });
 });
 
+router.put('/true', rejectUnauthenticated, async (req, res) => {
+  console.log('user',req.user);
+
+  try{
+    const result = await pool.query(
+      `UPDATE "user"
+      SET "default_pantry" = $1
+      WHERE "user".id = $2`, [req.body.default_pantry, req.user.id]
+    );
+    res.send(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+  // endpoint functionality
+});
+
+router.put('/false', rejectUnauthenticated, async (req, res) => {
+  console.log('user',req.user);
+
+  try{
+    const result = await pool.query(
+      `UPDATE "user"
+      SET "default_pantry" = $1
+      WHERE "user".id = $2`, [req.body.default_pantry, req.user.id]
+    );
+    res.send(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+  // endpoint functionality
+});
+
 // Handles login form authenticate/login POST
 // userStrategy.authenticate('local') is middleware that we run on this route
 // this middleware will run our POST if successful

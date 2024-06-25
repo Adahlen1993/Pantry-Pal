@@ -40,6 +40,62 @@ router.post('/', rejectUnauthenticated, async (req, res) => {
     
 });
 
+router.post('/default', async (req, res) => {
+    const userId = req.body.user_id;
+    const ingredientIds = req.body.ingredient_id; // Array of ingredient IDs
+    console.log('ingredient array', req.body)
+    if (!userId || !Array.isArray(ingredientIds) || ingredientIds.length === 0) {
+      return res.status(400).send('Invalid input');
+    }
+  
+    try {
+      const client = await pool.connect();
+  
+      const insertPromises = ingredientIds.map(ingredientId => {
+        return client.query(
+          'INSERT INTO "user_ingredients" ("user_id", "ingredients_id") VALUES ($1, $2) ON CONFLICT ("user_id", "ingredients_id") DO NOTHING',
+          [userId, ingredientId]
+        );
+      });
+  
+      await Promise.all(insertPromises);
+      client.release();
+      
+      res.status(200).send('Ingredients inserted successfully');
+    } catch (error) {
+      console.error('Error inserting ingredients', error);
+      res.status(500).send('Internal server error');
+    }
+  });
+
+  router.delete('/default', async (req, res) => {
+    const userId = req.body.user_id;
+    const ingredientIds = req.body.ingredient_ids; // Array of ingredient IDs
+  
+    if (!userId || !Array.isArray(ingredientIds) || ingredientIds.length === 0) {
+      return res.status(400).send('Invalid input');
+    }
+  
+    try {
+      const client = await pool.connect();
+  
+      const deletePromises = ingredientIds.map(ingredientId => {
+        return client.query(
+          'DELETE FROM "user_ingredients" WHERE "user_id" = $1 AND "ingredients_id" = $2',
+          [userId, ingredientId]
+        );
+      });
+  
+      await Promise.all(deletePromises);
+      client.release();
+      
+      res.status(200).send('Ingredients deleted successfully');
+    } catch (error) {
+      console.error('Error deleting ingredients', error);
+      res.status(500).send('Internal server error');
+    }
+  });
+
 router.delete('/', rejectUnauthenticated, async (req, res) => {
     console.log('/user ingredients DELETE route');
     console.log('useringredient delete', req.body.ingredients_id);

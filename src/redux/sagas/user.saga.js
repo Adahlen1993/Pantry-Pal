@@ -24,8 +24,28 @@ function* fetchUser() {
   }
 }
 
+function* editDefaultPantryTrue(action) {
+  try {
+     yield axios.put(`/api/user/true`, action.payload);
+   
+  }  catch (error) {
+     console.error(`Error editing user`);
+   }
+}
+
+function* editDefaultPantryFalse(action) {
+  try {
+     yield axios.put(`/api/user/false`, action.payload);
+   
+  }  catch (error) {
+     console.error(`Error editing user`);
+   }
+}
+
 function* userSaga() {
   yield takeLatest('FETCH_USER', fetchUser);
+  yield takeLatest('UPDATE_DEFAULT_PANTRY_TRUE', editDefaultPantryTrue);
+  yield takeLatest('UPDATE_DEFAULT_PANTRY_FALSE', editDefaultPantryFalse);
 }
 
 export default userSaga;
