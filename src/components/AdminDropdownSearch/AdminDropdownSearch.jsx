@@ -16,9 +16,13 @@ console.log('ingredients', ingredients)
 
 const handleSubmit = e => {
     e.preventDefault();
-    dispatch({type: 'SEARCH_INGREDIENTS', payload: selectIngredient.id});
+    console.log(selectIngredient.id)
+    dispatch({type: 'FETCH_SEARCH_INGREDIENTS', payload: selectIngredient.id});
    
     
+}
+const clearSearch = () => {
+    dispatch({type: 'FETCH_INGREDIENTS'})
 }
 
 useEffect(() => {
@@ -48,6 +52,7 @@ useEffect(() => {
           />
           <button>Submit</button>
           </form>
+          <button onClick={clearSearch}>Clear Search</button>
         </div>
       );
 

@@ -19,6 +19,21 @@ router.get('/', (req, res) => {
     } 
 });
 
+// router.put('/search', rejectUnauthenticated, async (req, res) => {
+//     console.log('user',req.body.id);
+  
+//     try{
+//       const result = await pool.query(
+//         `SELECT * FROM ingredients WHERE id = $1`, [ req.body.id]
+//       );
+//       res.send(result.rows);
+//     } catch (err) {
+//       console.error(err);
+//       res.sendStatus(500);
+//     }
+//     // endpoint functionality
+//   });
+
 router.put('/', rejectUnauthenticated, async (req, res) => {
     console.log('user',req.user);
   

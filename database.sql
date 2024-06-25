@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS "user" (
     "username" text NOT NULL,
     "password" text NOT NULL,
     "admin" boolean NOT NULL DEFAULT false,
+    "default_pantry" boolean NOT NULL DEFAULT false,
     PRIMARY KEY ("id")
 );
 

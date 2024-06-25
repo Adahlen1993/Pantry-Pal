@@ -46,7 +46,7 @@ export default function AdminIngredientsTable() {
 
   return (
     <>
-      <AdminDropdownSearch />
+      {/* <AdminDropdownSearch /> */}
       <div>
         <table>
           <thead>
@@ -65,9 +65,9 @@ export default function AdminIngredientsTable() {
               ingredients.map((uI) => (
                 <tr onClick={() => handleShow(uI)} key={uI.id}>
                   <td>{uI.name} </td>
-                  <td>{uI.user_id}</td>
+                 {!uI.user_id ? <td>0</td> : <td>{uI.user_id}</td>}
                   <td>
-                    <button onClick={() => handleDelete(uI.user_ing_id)}>
+                    <button onClick={() => handleDelete(uI.id)}>
                       Delete
                     </button>
                   </td>

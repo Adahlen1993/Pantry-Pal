@@ -12,6 +12,14 @@ function* fetchAllRecipes(action) {
   }
 }
 
+function* editRecipe(action) {
+    try {
+       yield axios.put(`/api/recipes`, action.payload);
+       yield put({type: 'FETCH_ALL_RECIPES'})
+    }  catch (error) {
+       console.error(`Error editing user`);
+     }
+  }
 
 function* addRecipes(action) {
    try {
@@ -23,7 +31,7 @@ function* addRecipes(action) {
 }
 
 function* allRecipesSaga() {
-
+  yield takeLatest('UPDATE_RECIPE', editRecipe),
   yield takeLatest('FETCH_ALL_RECIPES', fetchAllRecipes)
 }
 
