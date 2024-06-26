@@ -1,64 +1,72 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Table from "react-bootstrap/Table";
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import './UserIngredientsTable.css';
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
+
 function UserIngredientsTable() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: "FETCH_USER_INGREDIENTS" });
-  }, []);
+    dispatch({ type: 'FETCH_USER_INGREDIENTS' });
+  }, [dispatch]);
   const userIngredients = useSelector((store) => store.userIngredients);
   console.log(userIngredients);
-  const [heading, setHeading] = useState("Functional Component");
+  const [heading, setHeading] = useState('Functional Component');
 
   function handleDelete(ingId) {
     console.log(ingId);
-    dispatch({ type: "DELETE_INGREDIENT", payload: { ingredients_id: ingId } });
+    dispatch({ type: 'DELETE_INGREDIENT', payload: { ingredients_id: ingId } });
   }
 
   return (
-    <div>
-      <Container className="table-con">
-        <Row>
-
-        <Table striped bordered >
-          <thead>
-            <tr>
-              <th className="raleway-th-uing">Your Ingredients</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody >
-            {userIngredients.length === 0 ? (
-                <tr>
-                <td>No Ingredients</td>
-              </tr>
-            ) : (
-                userIngredients.map((uI) => (
-                    <tr key={uI.id}>
-                  <td className="raleway-td-uing">
-                    {uI.name} 
-                  </td>
-                  <td className="raleway-td-uing">
-                    <Button size="sm" className="btn-uing-delete" variant="danger" onClick={() => handleDelete(uI.user_ing_id)}>
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))
-              )}
-          </tbody>
-        </Table>
-            </Row>
-      </Container>
-    </div>
+    <Container className="table-con">
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TableContainer component={Paper}>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Your Ingredients</TableCell>
+                  <TableCell></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {userIngredients.length === 0 ? (
+                  <TableRow>
+                    <TableCell>No Ingredients</TableCell>
+                  </TableRow>
+                ) : (
+                  userIngredients.map((uI) => (
+                    <TableRow key={uI.id}>
+                      <TableCell className="raleway-td-uing">{uI.name}</TableCell>
+                      <TableCell className="raleway-td-uing">
+                        <Button
+                          size="small"
+                          variant="contained"
+                          color="secondary"
+                          onClick={() => handleDelete(uI.user_ing_id)}
+                        >
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

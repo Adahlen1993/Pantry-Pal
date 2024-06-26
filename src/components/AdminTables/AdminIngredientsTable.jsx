@@ -1,19 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import AdminDropdownSearch from "../AdminDropdownSearch/AdminDropdownSearch";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import Form from "react-bootstrap/Form";
-import { FloatingLabel } from "react-bootstrap";
-import Table from 'react-bootstrap/Table';
+
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 export default function AdminIngredientsTable() {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: "FETCH_INGREDIENTS" });
-  }, []);
+    dispatch({ type: 'FETCH_INGREDIENTS' });
+  }, [dispatch]);
 
-  const [ingredientName, setIngredientName] = useState("");
+  const [ingredientName, setIngredientName] = useState('');
   const [ingredientUser, setIngredientUser] = useState(false);
   const [ingredientId, setIngredientId] = useState(0);
   const [show, setShow] = useState(false);
@@ -21,7 +29,7 @@ export default function AdminIngredientsTable() {
   const handleClose = () => {
     setShow(false);
     dispatch({
-      type: "UPDATE_INGREDIENTS",
+      type: 'UPDATE_INGREDIENTS',
       payload: {
         id: ingredientId,
         name: ingredientName,
@@ -39,78 +47,73 @@ export default function AdminIngredientsTable() {
     setIngredientId(ingredient.id);
   };
 
-  function handleDelete(ingId) {
-    console.log(ingId);
-    dispatch({ type: "DELETE_INGREDIENT_ADMIN", payload: { ingredients: ingId } });
-  }
+  const handleDelete = (ingId) => {
+    dispatch({ type: 'DELETE_INGREDIENT_ADMIN', payload: { ingredients: ingId } });
+  };
+
   const ingredients = useSelector((store) => store.ingredients);
 
   return (
     <>
       {/* <AdminDropdownSearch /> */}
       <div>
-      <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Ingredients Name</th>
-              <th>User Id</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ingredients.length === 0 ? (
-              <tr>
-                <td>No Ingredients</td>
-              </tr>
-            ) : (
-              ingredients.map((uI) => (
-                <tr onClick={() => handleShow(uI)} key={uI.id}>
-                  <td>{uI.name} </td>
-                 {!uI.user_id ? <td>0</td> : <td>{uI.user_id}</td>}
-                  <td>
-                    <button onClick={() => handleDelete(uI.id)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </Table>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Item</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <FloatingLabel
-              controlId="floatingName"
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Ingredients Name</TableCell>
+                <TableCell>User Id</TableCell>
+                <TableCell>Delete</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {ingredients.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={3}>No Ingredients</TableCell>
+                </TableRow>
+              ) : (
+                ingredients.map((uI) => (
+                  <TableRow onClick={() => handleShow(uI)} key={uI.id}>
+                    <TableCell>{uI.name}</TableCell>
+                    <TableCell>{uI.user_id || 0}</TableCell>
+                    <TableCell>
+                      <Button variant="contained" color="secondary" onClick={() => handleDelete(uI.id)}>
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <Dialog open={show} onClose={handleCancel}>
+          <DialogTitle>Edit Item</DialogTitle>
+          <DialogContent>
+            <TextField
+              margin="dense"
               label="Name"
-              className="mb-3"
-            >
-              <Form.Control
-                value={ingredientName}
-                onChange={(e) => setIngredientName(e.target.value)}
-              />
-            </FloatingLabel>
-            <FloatingLabel
-            controlId="floatingUser"
-            label="User Id"
-            className="mb-3">
-              <Form.Control
-                value={ingredientUser}
-                onChange={(e) => setIngredientUser(e.target.value)}
-              />
-            </FloatingLabel>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCancel}>
+              fullWidth
+              value={ingredientName}
+              onChange={(e) => setIngredientName(e.target.value)}
+            />
+            <TextField
+              margin="dense"
+              label="User Id"
+              fullWidth
+              value={ingredientUser}
+              onChange={(e) => setIngredientUser(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancel} color="primary">
               Cancel
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button onClick={handleClose} color="primary">
               Save Changes
             </Button>
-          </Modal.Footer>
-        </Modal>
+          </DialogActions>
+        </Dialog>
       </div>
     </>
   );

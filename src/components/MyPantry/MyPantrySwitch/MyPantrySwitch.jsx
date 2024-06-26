@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Form from "react-bootstrap/Form";
-import axios from "axios";
-import { defaultPantry } from "./defaultPantry";
+
+import { useSelector, useDispatch } from 'react-redux';
+import { useState, useEffect } from 'react';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import axios from 'axios';
+import { defaultPantry } from './defaultPantry';
 
 function MyPantrySwitch() {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const [pantrySwitch, setPantrySwitch] = useState(false);
-    console.log('default pantry', defaultPantry)
+
   useEffect(() => {
     if (user.default_pantry === true) {
       setPantrySwitch(true);
@@ -20,17 +22,18 @@ function MyPantrySwitch() {
     setPantrySwitch(newSwitchState);
 
     if (newSwitchState === true) {
-      dispatch({ type: "UPDATE_DEFAULT_PANTRY_TRUE", payload: { default_pantry: true } });
+      dispatch({ type: 'UPDATE_DEFAULT_PANTRY_TRUE', payload: { default_pantry: true } });
       axios
-        .post("/api/user/ingredients/default", { user_id: user.id, ingredient_id: defaultPantry.ingredient_ids })
+        .post('/api/user/ingredients/default', { user_id: user.id, ingredient_id: defaultPantry.ingredient_ids })
         .then((response) => {
-          console.log("Data posted successfully:", response.data);
+          console.log('Data posted successfully:', response.data);
+          dispatch({type: 'FETCH_USER_INGREDIENTS'})
         })
         .catch((error) => {
-          console.error("Error posting data:", error);
+          console.error('Error posting data:', error);
         });
     } else {
-      dispatch({ type: "UPDATE_DEFAULT_PANTRY_FALSE", payload: { default_pantry: false } });
+      dispatch({ type: 'UPDATE_DEFAULT_PANTRY_FALSE', payload: { default_pantry: false } });
       deleteDefaultPantry(defaultPantry);
     }
   };
@@ -46,6 +49,7 @@ function MyPantrySwitch() {
 
       if (response.status === 200) {
         console.log('Ingredients deleted successfully');
+        dispatch({type: 'FETCH_USER_INGREDIENTS'})
       }
     } catch (error) {
       console.error('Error deleting ingredients', error);
@@ -53,15 +57,10 @@ function MyPantrySwitch() {
   };
 
   return (
-    <Form.Switch>
-      <Form.Check
-        type="switch"
-        id="custom-switch"
-        label="Set Default Pantry"
-        checked={pantrySwitch}
-        onChange={addStandardIngredients}
-      />
-    </Form.Switch>
+    <FormControlLabel
+      control={<Switch checked={pantrySwitch} onChange={addStandardIngredients} />}
+      label="Set Default Pantry"
+    />
   );
 }
 

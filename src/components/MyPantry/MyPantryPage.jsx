@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import DropdownSearch from "./DropdownSearch/DropdownSearch";
-import UserIngredientsTable from "./UserIngredientsTable/UserIngredientsTable";
-import MyPantrySwitch from "./MyPantrySwitch/MyPantrySwitch";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import UserIngredientsTable from './UserIngredientsTable/UserIngredientsTable';
+import MyPantrySwitch from './MyPantrySwitch/MyPantrySwitch';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import TestSearch from './DropdownSearch/MyPantrySearch';
 
-import "./MyPantryPage.css";
-import { Stack } from "react-bootstrap";
+import './MyPantryPage.css';
 
 export default function MyPantryPage() {
   const dispatch = useDispatch();
@@ -17,29 +16,21 @@ export default function MyPantryPage() {
   const recipes = useSelector((store) => store.recipes);
 
   return (
-    <>
-      {/* <Container>
-        <Row>
-          <Col className="col-mypantry-h1"> */}
-            <h1 className="kurale-regular">MyPantry</h1>
-          {/* </Col>
-        </Row>
-        <Row>
-          <Col> */}
-            {/* <Stack direction="horizontal"> */}
-              <DropdownSearch />
-          {/* </Col>
-          <Col sm="3"> */}
-              <MyPantrySwitch />
-          {/* </Col> */}
-            {/* </Stack> */}
-        {/* </Row>
-        <Row>
-          <Col> */}
-            <UserIngredientsTable />
-          {/* </Col>
-        </Row>
-      </Container> */}
-    </>
+    <Container>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <h1 className="kurale-regular">MyPantry</h1>
+        </Grid>
+        <Grid item xs={12} sm={9}>
+          <TestSearch />
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <MyPantrySwitch />
+        </Grid>
+        <Grid item xs={12}>
+          <UserIngredientsTable />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
