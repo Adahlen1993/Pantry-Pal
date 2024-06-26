@@ -25,7 +25,7 @@ import MyPantryPage from "../MyPantry/MyPantryPage";
 import Admin from "../Admin/Admin";
 import "./App.css";
 import Recipes from "../Recipes/Recipes";
-import RecipePage from '../RecipePage/RecipePage';
+import RecipePage from '../Recipes/RecipePage/RecipePage';
 
 function App() {
   const dispatch = useDispatch();
