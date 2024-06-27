@@ -7,53 +7,95 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from '@mui/material/IconButton';
-import "./UserIngredientsTable.css";
+import TablePagination from "@mui/material/TablePagination";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  tableContainer: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
+  },
+  tableHead: {
+    backgroundColor: theme.palette.primary.main,
+  },
+  tableHeadCell: {
+    color: theme.palette.common.white,
+    fontWeight: 'bold',
+  },
+  tableCell: {
+    fontFamily: theme.typography.fontFamily,
+  },
+  noIngredients: {
+    textAlign: 'center',
+    padding: theme.spacing(2),
+  },
+  deleteButton: {
+    color: theme.palette.error.main,
+  },
+}));
 
 function UserIngredientsTable() {
+  const classes = useStyles();
   const dispatch = useDispatch();
+  const userIngredients = useSelector((store) => store.userIngredients);
+  
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
   useEffect(() => {
     dispatch({ type: "FETCH_USER_INGREDIENTS" });
   }, [dispatch]);
-  const userIngredients = useSelector((store) => store.userIngredients);
-  console.log(userIngredients);
-  const [heading, setHeading] = useState("Functional Component");
 
-  function handleDelete(ingId) {
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleRowsPerPageChange = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleDelete = (ingId) => {
     console.log(ingId);
     dispatch({ type: "DELETE_INGREDIENT", payload: { ingredients_id: ingId } });
-  }
+  };
 
   return (
-    <Container className="table-con">
+    <Container>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} className={classes.tableContainer}>
             <Table>
-              <TableHead>
+              <TableHead className={classes.tableHead}>
                 <TableRow>
-                  <TableCell>Your Ingredients</TableCell>
+                  <TableCell className={classes.tableHeadCell}>Your Ingredients</TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {userIngredients.length === 0 ? (
                   <TableRow>
-                    <TableCell>No Ingredients</TableCell>
+                    <TableCell colSpan={2} className={classes.noIngredients}>
+                      No Ingredients
+                    </TableCell>
                   </TableRow>
                 ) : (
-                  userIngredients.map((uI) => (
+                  userIngredients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((uI) => (
                     <TableRow key={uI.id}>
-                      <TableCell className="raleway-td-uing">
+                      <TableCell className={classes.tableCell}>
                         {uI.name}
                       </TableCell>
-                      <TableCell className="raleway-td-uing">
-                    
-                        <IconButton  onClick={() => handleDelete(uI.user_ing_id)} aria-label="delete" size="large">
+                      <TableCell className={classes.tableCell}>
+                        <IconButton
+                          onClick={() => handleDelete(uI.user_ing_id)}
+                          aria-label="delete"
+                          size="large"
+                          className={classes.deleteButton}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       </TableCell>
@@ -62,6 +104,15 @@ function UserIngredientsTable() {
                 )}
               </TableBody>
             </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={userIngredients.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+            />
           </TableContainer>
         </Grid>
       </Grid>

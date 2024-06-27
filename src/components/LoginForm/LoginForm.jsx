@@ -1,8 +1,31 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Button, Typography, Box, Alert } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    maxWidth: '400px',
+    margin: '0 auto',
+  },
+  input: {
+    marginBottom: theme.spacing(2),
+  },
+  button: {
+    marginTop: theme.spacing(2),
+  },
+  alert: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 function LoginForm() {
+  const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
@@ -22,43 +45,45 @@ function LoginForm() {
     } else {
       dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
-  }; // end login
+  };
 
   return (
-    <form className="formPanel" onSubmit={login}>
-      <h2>Login</h2>
+    <form className={classes.form} onSubmit={login}>
+      <Typography variant="h5" component="h2" gutterBottom>
+        Login
+      </Typography>
       {errors.loginMessage && (
-        <h3 className="alert" role="alert">
+        <Alert severity="error" className={classes.alert} role="alert">
           {errors.loginMessage}
-        </h3>
+        </Alert>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
-      </div>
+      <TextField
+        label="Username"
+        variant="outlined"
+        fullWidth
+        required
+        value={username}
+        onChange={(event) => setUsername(event.target.value)}
+        className={classes.input}
+      />
+      <TextField
+        label="Password"
+        type="password"
+        variant="outlined"
+        fullWidth
+        required
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+        className={classes.input}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        className={classes.button}
+      >
+        Log In
+      </Button>
     </form>
   );
 }

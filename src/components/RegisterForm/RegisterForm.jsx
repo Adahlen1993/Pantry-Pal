@@ -1,7 +1,31 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { TextField, Button, Typography, Box, Alert } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+    maxWidth: '400px',
+    margin: '0 auto',
+  },
+  input: {
+    marginBottom: theme.spacing(2),
+  },
+  button: {
+    marginTop: theme.spacing(2),
+  },
+  alert: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 function RegisterForm() {
+  const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
@@ -17,43 +41,45 @@ function RegisterForm() {
         password: password,
       },
     });
-  }; // end registerUser
+  };
 
   return (
-    <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+    <form className={classes.form} onSubmit={registerUser}>
+      <Typography variant="h5" component="h2" gutterBottom>
+        Register User
+      </Typography>
       {errors.registrationMessage && (
-        <h3 className="alert" role="alert">
+        <Alert severity="error" className={classes.alert} role="alert">
           {errors.registrationMessage}
-        </h3>
+        </Alert>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
-            type="text"
-            name="username"
-            value={username}
-            required
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
-            type="password"
-            name="password"
-            value={password}
-            required
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
-      </div>
+      <TextField
+        label="Username"
+        variant="outlined"
+        fullWidth
+        required
+        value={username}
+        onChange={(event) => setUsername(event.target.value)}
+        className={classes.input}
+      />
+      <TextField
+        label="Password"
+        type="password"
+        variant="outlined"
+        fullWidth
+        required
+        value={password}
+        onChange={(event) => setPassword(event.target.value)}
+        className={classes.input}
+      />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        className={classes.button}
+      >
+        Register
+      </Button>
     </form>
   );
 }

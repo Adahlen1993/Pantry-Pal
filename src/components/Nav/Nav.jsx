@@ -1,59 +1,94 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 import LogOutButton from '../LogOutButton/LogOutButton';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  title: {
+    flexGrow: 1,
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+  linkButton: {
+    marginLeft: theme.spacing(2),
+  },
+}));
 
 function Nav() {
+  const classes = useStyles();
   const user = useSelector((store) => store.user);
-  console.log('Nav user', user);
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component={RouterLink} to="/home" style={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}>
+        <Typography variant="h6" component={RouterLink} to="/home" className={classes.title}>
           PantryPal
         </Typography>
-        {/* If no user is logged in, show these links */}
-        {user.id === null && (
-          <Button component={RouterLink} to="/login" color="inherit">
-            Login / Register
-          </Button>
-        )}
 
-        {/* If a user is logged in, show these links */}
-        {user.id && (
-          <>
-            <Button component={RouterLink} to="/user" color="inherit">
-              Home
-            </Button>
-            <Button component={RouterLink} to="/info" color="inherit">
-              Info Page
-            </Button>
-            <Button component={RouterLink} to="/recipes" color="inherit">
-              Recipes
-            </Button>
-            <Button component={RouterLink} to="/mypantry" color="inherit">
-              MyPantry
-            </Button>
-            <LogOutButton />
-          </>
-        )}
-
-        {/* If a user is an admin, show these links */}
-        {user.admin && (
-          <Button component={RouterLink} to="/admin" color="inherit">
-            Admin
-          </Button>
-        )}
-
-        <Button component={RouterLink} to="/about" color="inherit">
-          About
+        <Button component={RouterLink} to="/recipes" color="inherit" className={classes.linkButton}>
+          Recipes
         </Button>
+        <Button component={RouterLink} to="/mypantry" color="inherit" className={classes.linkButton}>
+          MyPantry
+        </Button>
+
+        <IconButton
+          edge="end"
+          color="inherit"
+          aria-label="menu"
+          onClick={handleMenuOpen}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+        >
+          {user.id === null ? (
+            <MenuItem component={RouterLink} to="/login" onClick={handleMenuClose}>
+              Login / Register
+            </MenuItem>
+          ) : (
+            [
+              <MenuItem key="home" component={RouterLink} to="/user" onClick={handleMenuClose}>
+                Home
+              </MenuItem>,
+              <MenuItem key="info" component={RouterLink} to="/info" onClick={handleMenuClose}>
+                Info Page
+              </MenuItem>,
+              <LogOutButton key="logout" onClick={handleMenuClose} />,
+            ]
+          )}
+
+          {user.admin && (
+            <MenuItem component={RouterLink} to="/admin" onClick={handleMenuClose}>
+              Admin
+            </MenuItem>
+          )}
+
+          <MenuItem component={RouterLink} to="/about" onClick={handleMenuClose}>
+            About
+          </MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );

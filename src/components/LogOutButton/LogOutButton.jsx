@@ -1,18 +1,28 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import MenuItem from '@mui/material/MenuItem';
+import { makeStyles } from '@mui/styles';
 
-function LogOutButton(props) {
+const useStyles = makeStyles((theme) => ({
+  button: {
+    marginLeft: theme.spacing(2),
+    color: 'inherit',
+  },
+}));
+
+function LogOutButton({ onClick }) {
+  const classes = useStyles();
   const dispatch = useDispatch();
+
+  const logOut = () => {
+    dispatch({ type: 'LOGOUT' });
+    if (onClick) onClick();
+  };
+
   return (
-    <button
-      // This button shows up in multiple locations and is styled differently
-      // because it's styled differently depending on where it is used, the className
-      // is passed to it from it's parents through React props
-      className={props.className}
-      onClick={() => dispatch({ type: 'LOGOUT' })}
-    >
+    <MenuItem onClick={logOut} className={classes.button}>
       Log Out
-    </button>
+    </MenuItem>
   );
 }
 

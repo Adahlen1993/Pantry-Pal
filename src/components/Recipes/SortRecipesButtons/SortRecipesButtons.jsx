@@ -1,17 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
-// import { Provider } from 'react-redux';
-// import store from './store';
-
-// Define actions within the same file
-const fetchFilteredRecipesRequest = (userId, recipeType) => ({
-  type: 'FETCH_FILTERED_RECIPES',
-  payload: { userId, recipeType },
-});
+// import { fetchFilteredRecipesRequest } from './actions';  // Import actions if defined elsewhere
 
 const images = [
   {
@@ -50,7 +43,7 @@ const ImageButton = styled(ButtonBase)(({ theme }) => ({
       opacity: 0,
     },
     '& .MuiTypography-root': {
-      border: '4px solid currentColor',
+      border: `4px solid ${theme.palette.primary.main}`,
     },
   },
 }));
@@ -140,9 +133,6 @@ export default function SortRecipesButtons() {
           </Image>
         </ImageButton>
       ))}
- 
     </Box>
   );
 }
-
- 

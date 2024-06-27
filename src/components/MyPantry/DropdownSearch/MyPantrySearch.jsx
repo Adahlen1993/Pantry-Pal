@@ -1,74 +1,128 @@
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Autocomplete from '@mui/material/Autocomplete';
-import Button from '@mui/material/Button';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Autocomplete from "@mui/material/Autocomplete";
+import Button from "@mui/material/Button";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from '@mui/material/Alert';
+import { makeStyles, useTheme } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    width: '100%',
+    marginTop: theme.spacing(2),
+  },
+  textField: {
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: theme.shape.borderRadius,
+  },
+  button: {
+    marginTop: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      marginTop: 0,
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
+
+const Alert = React.forwardRef((props, ref) => {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function FreeSolo() {
-    const [inputValue, setInputValue] = useState('');
-    const [selectIngredient, setSelectIngredient] = useState(null);
-    const ingredients = useSelector((store) => store.ingredients);
-    const dispatch = useDispatch();
-    const isMobile = useMediaQuery('(max-width:600px)');
+  const classes = useStyles();
+  const theme = useTheme();
+  const [inputValue, setInputValue] = useState('');
+  const [selectIngredient, setSelectIngredient] = useState(null);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const ingredients = useSelector((store) => store.ingredients);
+  const dispatch = useDispatch();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-    console.log(selectIngredient);
-    console.log(inputValue);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (selectIngredient) {
+      dispatch({ type: 'ADD_INGREDIENT', payload: selectIngredient });
+      dispatch({ type: 'FETCH_RECIPES' });
+      handleSnackbarOpen(`Ingredient "${selectIngredient.name}" added!`);
+      setSelectIngredient(null);
+      setInputValue('');
+    }
+  };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        dispatch({ type: 'ADD_INGREDIENT', payload: selectIngredient });
-        dispatch({ type: 'FETCH_RECIPES' });
-    };
+  const handleSnackbarOpen = (message) => {
+    setSnackbarMessage(message);
+    setSnackbarOpen(true);
+  };
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_INGREDIENTS' });
-    }, [dispatch]);
+  const handleSnackbarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackbarOpen(false);
+  };
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <Stack
-                direction={isMobile ? "column" : "row"}
-                spacing={2}
-                alignItems={isMobile ? "stretch" : "center"}
-            >
-                <Autocomplete
-                    fullWidth
-                    freeSolo
-                    id="free-solo-2-demo"
-                    options={ingredients}
-                    getOptionLabel={(option) => option.name}
-                    value={selectIngredient}
-                    onChange={(event, newValue) => {
-                        setSelectIngredient(newValue);
-                    }}
-                    inputValue={inputValue}
-                    onInputChange={(event, newInputValue) => {
-                        setInputValue(newInputValue);
-                    }}
-                    renderInput={(params) => (
-                        <TextField
-                            {...params}
-                            label="Find Ingredients"
-                            InputProps={{
-                                ...params.InputProps,
-                                type: 'search',
-                            }}
-                        />
-                    )}
-                />
-                <Button 
-                    variant="contained" 
-                    type="submit" 
-                    size={isMobile ? "large" : "medium"}
-                    fullWidth={isMobile}
-                >
-                    Submit
-                </Button>
-            </Stack>
-        </form>
-    );
+  useEffect(() => {
+    dispatch({ type: 'FETCH_INGREDIENTS' });
+  }, [dispatch]);
+
+  return (
+    <form className={classes.form} onSubmit={handleSubmit}>
+      <Stack
+        direction={isMobile ? 'column' : 'row'}
+        spacing={2}
+        alignItems={isMobile ? 'stretch' : 'center'}
+      >
+        <Autocomplete
+          fullWidth
+          freeSolo
+          id="free-solo-2-demo"
+          options={ingredients}
+          getOptionLabel={(option) => option.name}
+          value={selectIngredient}
+          onChange={(event, newValue) => {
+            setSelectIngredient(newValue);
+          }}
+          inputValue={inputValue}
+          onInputChange={(event, newInputValue) => {
+            setInputValue(newInputValue);
+          }}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Find Ingredients"
+              variant="outlined"
+              className={classes.textField}
+              InputProps={{
+                ...params.InputProps,
+                type: 'search',
+              }}
+            />
+          )}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          type="submit"
+          size={isMobile ? 'large' : 'medium'}
+          className={classes.button}
+          fullWidth={isMobile}
+        >
+          Submit
+        </Button>
+      </Stack>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+      >
+        <Alert onClose={handleSnackbarClose} severity="success">
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
+    </form>
+  );
 }
