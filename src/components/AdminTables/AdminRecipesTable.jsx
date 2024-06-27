@@ -19,6 +19,7 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import TablePagination from '@mui/material/TablePagination';
 
 function AdminRecipesTable() {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ function AdminRecipesTable() {
   }, [dispatch]);
   const recipes = useSelector((store) => store.allRecipesReducer);
   const type = useSelector((store) => store.recipeTypeReducer);
+
   const [recipeName, setRecipeName] = useState('');
   const [recipeType, setRecipeType] = useState({ type_id: 0, type_name: '' });
   const [recipeDescription, setRecipeDescription] = useState('');
@@ -41,6 +43,9 @@ function AdminRecipesTable() {
   const [recipeIngredientsList, setRecipeIngredientsList] = useState('');
   const [clickedRecipe, setClickedRecipe] = useState('');
   const [show, setShow] = useState(false);
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleClose = () => {
     setShow(false);
@@ -62,9 +67,11 @@ function AdminRecipesTable() {
       },
     });
   };
+
   const handleCancel = () => {
     setShow(false);
   };
+
   const handleShow = (recipe) => {
     setShow(true);
     if (!recipe.description) {
@@ -87,6 +94,17 @@ function AdminRecipesTable() {
     setClickedRecipe(recipe.id);
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, recipes.length - page * rowsPerPage);
+
   return (
     <div>
       <TableContainer component={Paper}>
@@ -107,7 +125,7 @@ function AdminRecipesTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {recipes.map((recipe) => (
+            {recipes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((recipe) => (
               <TableRow onClick={() => handleShow(recipe)} key={recipe.id}>
                 <TableCell>{recipe.recipe_name}</TableCell>
                 <TableCell>{recipe.recipe_type}</TableCell>
@@ -122,8 +140,22 @@ function AdminRecipesTable() {
                 <TableCell>{recipe.recipe_ingredients_list}</TableCell>
               </TableRow>
             ))}
+            {emptyRows > 0 && (
+              <TableRow style={{ height: 53 * emptyRows }}>
+                <TableCell colSpan={11} />
+              </TableRow>
+            )}
           </TableBody>
         </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={recipes.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </TableContainer>
       <Dialog open={show} onClose={handleCancel}>
         <DialogTitle>Edit Recipe</DialogTitle>

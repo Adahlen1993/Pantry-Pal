@@ -69,6 +69,12 @@ export default function FreeSolo() {
     dispatch({ type: 'FETCH_INGREDIENTS' });
   }, [dispatch]);
 
+  const filterOptions = (options, { inputValue }) => {
+    return options.filter((option) =>
+      option.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  };
+
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Stack
@@ -82,6 +88,7 @@ export default function FreeSolo() {
           id="free-solo-2-demo"
           options={ingredients}
           getOptionLabel={(option) => option.name}
+          filterOptions={filterOptions}
           value={selectIngredient}
           onChange={(event, newValue) => {
             setSelectIngredient(newValue);

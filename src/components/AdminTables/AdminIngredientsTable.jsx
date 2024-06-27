@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
@@ -14,6 +13,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import TablePagination from '@mui/material/TablePagination';
 
 export default function AdminIngredientsTable() {
   const dispatch = useDispatch();
@@ -25,6 +25,9 @@ export default function AdminIngredientsTable() {
   const [ingredientUser, setIngredientUser] = useState(false);
   const [ingredientId, setIngredientId] = useState(0);
   const [show, setShow] = useState(false);
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleClose = () => {
     setShow(false);
@@ -51,7 +54,18 @@ export default function AdminIngredientsTable() {
     dispatch({ type: 'DELETE_INGREDIENT_ADMIN', payload: { ingredients: ingId } });
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   const ingredients = useSelector((store) => store.ingredients);
+
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, ingredients.length - page * rowsPerPage);
 
   return (
     <>
@@ -72,21 +86,37 @@ export default function AdminIngredientsTable() {
                   <TableCell colSpan={3}>No Ingredients</TableCell>
                 </TableRow>
               ) : (
-                ingredients.map((uI) => (
-                  <TableRow onClick={() => handleShow(uI)} key={uI.id}>
-                    <TableCell>{uI.name}</TableCell>
-                    <TableCell>{uI.user_id || 0}</TableCell>
-                    <TableCell>
-                      <Button variant="contained" color="secondary" onClick={() => handleDelete(uI.id)}>
-                        Delete
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))
+                ingredients
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((uI) => (
+                    <TableRow onClick={() => handleShow(uI)} key={uI.id}>
+                      <TableCell>{uI.name}</TableCell>
+                      <TableCell>{uI.user_id || 0}</TableCell>
+                      <TableCell>
+                        <Button variant="contained" color="secondary" onClick={() => handleDelete(uI.id)}>
+                          Delete
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+              )}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: 53 * emptyRows }}>
+                  <TableCell colSpan={3} />
+                </TableRow>
               )}
             </TableBody>
           </Table>
         </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          component="div"
+          count={ingredients.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
         <Dialog open={show} onClose={handleCancel}>
           <DialogTitle>Edit Item</DialogTitle>
           <DialogContent>

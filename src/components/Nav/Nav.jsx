@@ -11,6 +11,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import { makeStyles } from '@mui/styles';
+import '../App/App.css';
+import justLogo from '../../../public/PantryPalJustLogo.png';
+import justName from '../../../public/PantryPalJustName.png';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -40,15 +43,16 @@ function Nav() {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component={RouterLink} to="/home" className={classes.title}>
-          PantryPal
+          <img src={justLogo} alt='first' height={50} width={50}/><img alt='second' src={justName} height={50} width={180}/>
         </Typography>
 
-        <Button component={RouterLink} to="/recipes" color="inherit" className={classes.linkButton}>
-          Recipes
-        </Button>
         <Button component={RouterLink} to="/mypantry" color="inherit" className={classes.linkButton}>
           MyPantry
         </Button>
+        <Button component={RouterLink} to="/recipes" color="inherit" className={classes.linkButton}>
+          Recipes
+        </Button>
+       
 
         <IconButton
           edge="end"
@@ -72,9 +76,9 @@ function Nav() {
               <MenuItem key="home" component={RouterLink} to="/user" onClick={handleMenuClose}>
                 Home
               </MenuItem>,
-              <MenuItem key="info" component={RouterLink} to="/info" onClick={handleMenuClose}>
-                Info Page
-              </MenuItem>,
+              // <MenuItem key="info" component={RouterLink} to="/info" onClick={handleMenuClose}>
+              //   Info Page
+              // </MenuItem>,
               <LogOutButton key="logout" onClick={handleMenuClose} />,
             ]
           )}
@@ -85,9 +89,9 @@ function Nav() {
             </MenuItem>
           )}
 
-          <MenuItem component={RouterLink} to="/about" onClick={handleMenuClose}>
+          {/* <MenuItem component={RouterLink} to="/about" onClick={handleMenuClose}>
             About
-          </MenuItem>
+          </MenuItem> */}
         </Menu>
       </Toolbar>
     </AppBar>

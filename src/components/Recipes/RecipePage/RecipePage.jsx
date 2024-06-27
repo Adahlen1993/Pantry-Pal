@@ -6,11 +6,14 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { makeStyles } from '@mui/styles';
+import Divider from '@mui/material/Divider';
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
+    position: 'relative',
   },
   button: {
     marginBottom: theme.spacing(2),
@@ -23,6 +26,15 @@ const useStyles = makeStyles((theme) => ({
   },
   instructions: {
     whiteSpace: 'pre-line', // To handle new lines in instructions
+  },
+  timeBox: {
+    position: 'absolute',
+    top: theme.spacing(2),
+    right: theme.spacing(2),
+    padding: theme.spacing(2),
+    backgroundColor: 'white',
+    boxShadow: theme.shadows[2],
+    borderRadius: theme.shape.borderRadius,
   },
 }));
 
@@ -48,7 +60,8 @@ function RecipePage() {
         <Typography variant="h2" gutterBottom>
           {recipe.recipe_name}
         </Typography>
-        <Box className={classes.section}>
+        <Divider variant="middle" component="h2" />
+        <Box className={classes.timeBox}>
           <Typography variant="h5" component="div">
             Preparation Time: {recipe.preptime}
           </Typography>
@@ -67,6 +80,7 @@ function RecipePage() {
             {recipe.recipe_ingredients_list}
           </Typography>
         </Box>
+        <Divider variant="middle" component="h4" />
         <Box className={classes.section}>
           <Typography variant="h4" component="div">
             Instructions:
@@ -74,7 +88,9 @@ function RecipePage() {
           <Typography variant="body1" component="div" className={classes.instructions}>
             {recipe.instructions}
           </Typography>
+
         </Box>
+        <Divider variant="middle" component="h4" />
       </Box>
     </Container>
   );

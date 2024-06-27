@@ -1,25 +1,31 @@
-/* // <uniquifier>: Use a unique and descriptive class name
-// <weight>: Use a value from 100 to 900 */
+/* Add this to your App.css or any relevant CSS file */
 
-/* .raleway-<uniquifier> {
-  font-family: "Raleway", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-} */
+/* General styles for images */
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-/* .kurale-regular {
-  font-family: "Kurale", serif;
-  font-weight: 400;
-  font-style: normal;
-} */
+.image-container img {
+  max-width: 100%;
+  height: auto;
+  flex: 1 1 auto; /* Allow the image to grow and shrink */
+  margin: 10px; /* Add some spacing between images */
+}
 
-/* // <uniquifier>: Use a unique and descriptive class name
-// <weight>: Use a value from 100 to 400 */
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .image-container img {
+    max-width: 45%; /* Reduce the size of the images */
+    flex: 1 1 45%;
+  }
+}
 
-/* .playwrite-nz-<uniquifier> {
-  font-family: "Playwrite NZ", cursive;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-} */
+@media (max-width: 480px) {
+  .image-container img {
+    max-width: 90%; /* Further reduce the size for very small screens */
+    flex: 1 1 90%;
+  }
+}

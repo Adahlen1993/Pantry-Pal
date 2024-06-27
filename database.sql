@@ -63,20 +63,7 @@ CREATE TABLE IF NOT EXISTS "user_ingredients" (
     CONSTRAINT user_ingredient_unique UNIQUE ("user_id", "ingredients_id")
 );
 
-CREATE TABLE IF NOT EXISTS "recipes2" (
-    "id" bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE,
-    "recipe_type" bigint NOT NULL,
-    "recipe_name" text NOT NULL,
-    "description" text NOT NULL,
-    "instructions" text NOT NULL,
-    "favorite" boolean NOT NULL DEFAULT false,
-    "likes" bigint NOT NULL,
-    "user_id" bigint DEFAULT NULL,
-    "image" text DEFAULT NULL,
-    PRIMARY KEY ("id"),
-    FOREIGN KEY ("recipe_type") REFERENCES "recipe_type"("id"),
-    FOREIGN KEY ("user_id") REFERENCES "user"("id")
-);
+
 
 CREATE TABLE IF NOT EXISTS "Favorites" (
     "id" bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE,
