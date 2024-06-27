@@ -42,6 +42,37 @@ router.put('/all', rejectUnauthenticated, async (req, res) => {
     // endpoint functionality
   });
 
+  router.get('/filtered', rejectUnauthenticated, (req, res) => {
+    console.log('/recipes GET route');
+    console.log('is authenticated?', req.isAuthenticated());
+    console.log('user', req.user);
+    
+    const userId = req.query.userId;
+    const recipeType = req.query.recipeType;
+
+    let queryText = `
+        SELECT r.id, r.recipe_name, r.description, r.instructions, r.favorite, r.likes
+        FROM recipes r
+        JOIN recipes_ingredients ri ON r.id = ri.recipe_id
+        JOIN ingredients i ON ri.ingredients_id = i.id
+        JOIN user_ingredients ui ON i.id = ui.ingredients_id
+        WHERE ui.user_id = $1
+        AND r.recipe_type = $2
+        GROUP BY r.id
+        HAVING COUNT(DISTINCT ri.ingredients_id) = (
+            SELECT COUNT(*) FROM recipes_ingredients WHERE recipe_id = r.id
+        );
+    `;
+    pool.query(queryText, [userId, recipeType])
+        .then((result) => {
+            res.send(result.rows);
+        })
+        .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+        });
+});
+
 router.get('/all', rejectUnauthenticated, (req, res) => {
     console.log('/pet GET route');
     console.log('is authenticated?', req.isAuthenticated());

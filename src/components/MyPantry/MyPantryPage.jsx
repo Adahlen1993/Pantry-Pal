@@ -6,6 +6,7 @@ import MyPantrySwitch from './MyPantrySwitch/MyPantrySwitch';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+
 import TestSearch from './DropdownSearch/MyPantrySearch';
 
 import './MyPantryPage.css';
@@ -23,9 +24,9 @@ export default function MyPantryPage() {
         </Grid>
         <Grid item xs={12} sm={9}>
           <TestSearch />
+          <MyPantrySwitch />
         </Grid>
         <Grid item xs={12} sm={3}>
-          <MyPantrySwitch />
         </Grid>
         <Grid item xs={12}>
           <UserIngredientsTable />

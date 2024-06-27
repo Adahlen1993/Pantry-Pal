@@ -1,67 +1,61 @@
+
 import React from 'react';
-import { Link } from 'react-router-dom';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import './Nav.css';
+import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import LogOutButton from '../LogOutButton/LogOutButton';
 
 function Nav() {
   const user = useSelector((store) => store.user);
-  console.log('Nav user', user)
+  console.log('Nav user', user);
 
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Weekend Spike</h2>
-      </Link>
-      <div>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" component={RouterLink} to="/home" style={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}>
+          PantryPal
+        </Typography>
         {/* If no user is logged in, show these links */}
-        {user.id === null &&
-          // If there's no user, show login/registration links
-          <Link className="navLink" to="/login">
+        {user.id === null && (
+          <Button component={RouterLink} to="/login" color="inherit">
             Login / Register
-          </Link>
-        }
+          </Button>
+        )}
 
         {/* If a user is logged in, show these links */}
         {user.id && (
           <>
-            <Link className="navLink" to="/user">
+            <Button component={RouterLink} to="/user" color="inherit">
               Home
-            </Link>
-
-            <Link className="navLink" to="/info">
+            </Button>
+            <Button component={RouterLink} to="/info" color="inherit">
               Info Page
-            </Link>
-
-            <Link className="navLink" to="/recipes">
+            </Button>
+            <Button component={RouterLink} to="/recipes" color="inherit">
               Recipes
-            </Link>
-
-            <Link className="navLink" to="/mypantry">
+            </Button>
+            <Button component={RouterLink} to="/mypantry" color="inherit">
               MyPantry
-            </Link>
-
-            <LogOutButton className="navLink" />
-          </>
-        )}
-         {/* If a user is logged in, show these links */}
-         {user.admin &&  (
-          <>
-           
-
-            <Link className="navLink" to="/admin">
-              Admin
-            </Link>
-
-           
+            </Button>
+            <LogOutButton />
           </>
         )}
 
-        <Link className="navLink" to="/about">
+        {/* If a user is an admin, show these links */}
+        {user.admin && (
+          <Button component={RouterLink} to="/admin" color="inherit">
+            Admin
+          </Button>
+        )}
+
+        <Button component={RouterLink} to="/about" color="inherit">
           About
-        </Link>
-      </div>
-    </div>
+        </Button>
+      </Toolbar>
+    </AppBar>
   );
 }
 

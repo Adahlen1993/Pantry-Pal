@@ -1,6 +1,8 @@
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
+import Button from '@mui/material/Button';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -11,6 +13,7 @@ export default function FreeSolo() {
     const [selectIngredient, setSelectIngredient] = useState(null);
     const ingredients = useSelector((store) => store.ingredients);
     const dispatch = useDispatch();
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     console.log(selectIngredient);
     console.log(inputValue);
@@ -27,31 +30,45 @@ export default function FreeSolo() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <Autocomplete
-                freeSolo
-                id="free-solo-2-demo"
-                options={ingredients}
-                getOptionLabel={(option) => option.name}
-                value={selectIngredient}
-                onChange={(event, newValue) => {
-                    setSelectIngredient(newValue);
-                }}
-                inputValue={inputValue}
-                onInputChange={(event, newInputValue) => {
-                    setInputValue(newInputValue);
-                }}
-                renderInput={(params) => (
-                    <TextField
-                        {...params}
-                        label="Find Ingredients"
-                        InputProps={{
-                            ...params.InputProps,
-                            type: 'search',
-                        }}
-                    />
-                )}
-            />
-            <button type="submit">Submit</button>
+            <Stack
+                direction={isMobile ? "column" : "row"}
+                spacing={2}
+                alignItems={isMobile ? "stretch" : "center"}
+            >
+                <Autocomplete
+                    fullWidth
+                    freeSolo
+                    id="free-solo-2-demo"
+                    options={ingredients}
+                    getOptionLabel={(option) => option.name}
+                    value={selectIngredient}
+                    onChange={(event, newValue) => {
+                        setSelectIngredient(newValue);
+                    }}
+                    inputValue={inputValue}
+                    onInputChange={(event, newInputValue) => {
+                        setInputValue(newInputValue);
+                    }}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Find Ingredients"
+                            InputProps={{
+                                ...params.InputProps,
+                                type: 'search',
+                            }}
+                        />
+                    )}
+                />
+                <Button 
+                    variant="contained" 
+                    type="submit" 
+                    size={isMobile ? "large" : "medium"}
+                    fullWidth={isMobile}
+                >
+                    Submit
+                </Button>
+            </Stack>
         </form>
     );
 }
