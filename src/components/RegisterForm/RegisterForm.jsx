@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Box, Alert } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -28,25 +29,38 @@ function RegisterForm() {
   const classes = useStyles();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const errors = useSelector((store) => store.errors);
+  const errors = useSelector(store => store.errors);
+  const user = useSelector(store => store.user);
   const dispatch = useDispatch();
+  const history = useHistory();
 
-  const registerUser = (event) => {
+  useEffect(() => {
+    if (user.id) {
+      // Redirect to /mypantry if user is logged in
+      history.push('/mypantry');
+    }
+  }, [user, history]);
+
+  const register = (event) => {
     event.preventDefault();
 
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        username: username,
-        password: password,
-      },
-    });
+    if (username && password) {
+      dispatch({
+        type: 'REGISTER',
+        payload: {
+          username: username,
+          password: password,
+        },
+      });
+    } else {
+      dispatch({ type: 'REGISTER_INPUT_ERROR' });
+    }
   };
 
   return (
-    <form className={classes.form} onSubmit={registerUser}>
+    <form className={classes.form} onSubmit={register}>
       <Typography variant="h5" component="h2" gutterBottom>
-        Register User
+        Register
       </Typography>
       {errors.registrationMessage && (
         <Alert severity="error" className={classes.alert} role="alert">

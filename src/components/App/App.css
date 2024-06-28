@@ -29,3 +29,26 @@
     flex: 1 1 90%;
   }
 }
+
+
+body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/public/PantryPalLogo.png'); /* Update with the correct path to your logo */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.1; /* Adjust the opacity for watermark effect */
+  pointer-events: none; /* Ensure the watermark does not interfere with other elements */
+  z-index: -1; /* Ensure it stays in the background */
+}

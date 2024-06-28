@@ -9,23 +9,22 @@ import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import IconButton from '@mui/material/IconButton';
-// import { fetchFilteredRecipesRequest } from './actions';  // Import actions if defined elsewhere
 
 const images = [
   {
     url: 'https://www.thedailymeal.com/img/gallery/mexican-food-can-be-traced-all-the-way-back-to-7000-bc/intro-1674486308.jpg',
     title: 'Mexican Food',
-    type: 4
+    type: 4,
   },
   {
     url: 'https://wpcdn.us-midwest-1.vip.tn-cloud.net/www.charlottemagazine.com/content/uploads/2023/03/s/h/08-12-21-jimmny-cltmag-0673.jpg',
     title: 'Italian Food',
-    type: 3
+    type: 3,
   },
   {
     url: 'https://americajosh.com/wp-content/uploads/2022/10/What-I-Learned-from%E2%80%A6-American-Food_.jpg',
     title: 'American Food',
-    type: 15
+    type: 15,
   },
 ];
 
@@ -52,12 +51,15 @@ const Image = styled('div')(({ theme, url }) => ({
   },
 }));
 
+// Define the action creator
+const fetchFilteredRecipesRequest = (userId, recipeType) => ({
+  type: 'FETCH_FILTERED_RECIPES',
+  payload: { userId, recipeType },
+});
+
 export default function SortRecipesDropdown() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user)
-  const recipes = useSelector((state) => state.recipes);
-  const loading = useSelector((state) => state.loading);
-  const error = useSelector((state) => state.error);
+  const user = useSelector((state) => state.user);
   const [selectedType, setSelectedType] = useState('');
 
   const handleSelectChange = (event) => {

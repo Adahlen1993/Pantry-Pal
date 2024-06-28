@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button, Typography, Box, Alert } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -29,7 +30,16 @@ function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
+  const user = useSelector(store => store.user);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    if (user.id) {
+      // Redirect to /mypantry if user is logged in
+      history.push('/mypantry');
+    }
+  }, [user, history]);
 
   const login = (event) => {
     event.preventDefault();
