@@ -73,41 +73,41 @@ function Nav() {
             <Button component={RouterLink} to="/recipes" color="inherit" className={classes.linkButton}>
               Recipes
             </Button>
+
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleMenuOpen}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              {user.id === null ? (
+                <MenuItem component={RouterLink} to="/login" onClick={handleMenuClose}>
+                  Login / Register
+                </MenuItem>
+              ) : (
+                <div>
+                  <MenuItem key="home" component={RouterLink} to="/user" onClick={handleMenuClose}>
+                    Home
+                  </MenuItem>
+                  <LogOutButton key="logout" onClick={handleMenuClose} />
+                </div>
+              )}
+
+              {user.admin && (
+                <MenuItem component={RouterLink} to="/admin" onClick={handleMenuClose}>
+                  Admin
+                </MenuItem>
+              )}
+            </Menu>
           </>
         )}
-
-        <IconButton
-          edge="end"
-          color="inherit"
-          aria-label="menu"
-          onClick={handleMenuOpen}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleMenuClose}
-        >
-          {user.id === null ? (
-            <MenuItem component={RouterLink} to="/login" onClick={handleMenuClose}>
-              Login / Register
-            </MenuItem>
-          ) : (
-            [
-              <MenuItem key="home" component={RouterLink} to="/user" onClick={handleMenuClose}>
-                Home
-              </MenuItem>,
-              <LogOutButton key="logout" onClick={handleMenuClose} />,
-            ]
-          )}
-
-          {user.admin && (
-            <MenuItem component={RouterLink} to="/admin" onClick={handleMenuClose}>
-              Admin
-            </MenuItem>
-          )}
-        </Menu>
       </Toolbar>
     </AppBar>
   );

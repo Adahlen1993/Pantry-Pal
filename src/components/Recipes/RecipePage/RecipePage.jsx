@@ -63,7 +63,7 @@ function RecipePage() {
         Return
       </Button>
       <Box>
-        <Typography variant="h2" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           {recipe.recipe_name}
         </Typography>
         <Divider variant="middle" component="h2" />

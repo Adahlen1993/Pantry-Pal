@@ -24,6 +24,7 @@ const theme = createTheme({
     },
     h2: {
       fontFamily: '"Merriweather", "serif"',
+      
     },
     h3: {
       fontFamily: '"Merriweather", "serif"',
@@ -48,8 +49,21 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          letterSpacing: '1px',
+          fontSize: '15px',
           borderRadius: '8px',
           textTransform: 'none',
+          color: 'black', // Main text color
+          textShadow: `
+            1px 1px 0 white, 
+            -1px -1px 0 white, 
+            -1px 1px 0 white, 
+            1px -1px 0 white, 
+            1px 0 0 white, 
+            -1px 0 0 white, 
+            0 1px 0 white, 
+            0 -1px 0 white
+          `, // Create a white outline
         },
         containedPrimary: {
           backgroundColor: '#4caf50',

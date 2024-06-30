@@ -25,6 +25,17 @@ const useStyles = makeStyles((theme) => ({
   tableHeadCell: {
     color: theme.palette.common.white,
     fontWeight: 'bold',
+    fontSize: '2rem', // Increase the font size
+    textShadow: `
+      1px 1px 0 white, 
+      -1px -1px 0 white, 
+      -1px 1px 0 white, 
+      1px -1px 0 white, 
+      1px 0 0 white, 
+      -1px 0 0 white, 
+      0 1px 0 white, 
+      0 -1px 0 white
+    `, // Create a white outline effect
   },
   tableCell: {
     fontFamily: theme.typography.fontFamily,
@@ -105,7 +116,7 @@ function UserIngredientsTable() {
               </TableBody>
             </Table>
             <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
+              rowsPerPageOptions={[10, 25, 50]}
               component="div"
               count={userIngredients.length}
               rowsPerPage={rowsPerPage}

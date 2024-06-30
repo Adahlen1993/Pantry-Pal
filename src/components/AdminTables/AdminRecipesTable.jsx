@@ -1,32 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import TablePagination from '@mui/material/TablePagination';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  MenuItem,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  FormControl,
+  InputLabel,
+  Box,
+  Typography,
+  TablePagination,
+} from '@mui/material';
 
 function AdminRecipesTable() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch({ type: 'FETCH_ALL_RECIPES' });
     dispatch({ type: 'FETCH_RECIPE_TYPE' });
   }, [dispatch]);
+
   const recipes = useSelector((store) => store.allRecipesReducer);
   const type = useSelector((store) => store.recipeTypeReducer);
 
@@ -74,22 +78,16 @@ function AdminRecipesTable() {
 
   const handleShow = (recipe) => {
     setShow(true);
-    if (!recipe.description) {
-      setRecipeDescription('None');
-    }
+    setRecipeDescription(recipe.description || 'None');
     setRecipeIngredientsList(recipe.recipe_ingredients_list);
     setRecipeInstructions(recipe.instructions);
     setRecipeLikes(recipe.likes);
-    if (!recipe.image) {
-      setRecipeImage('None');
-    }
-    if (!recipe.type) {
-      setRecipeType(0);
-    }
+    setRecipeImage(recipe.image || 'None');
+    setRecipeType({ type_id: recipe.type?.id || 0, type_name: recipe.type?.name || '' });
     setRecipePreptime(recipe.preptime);
     setRecipeCooktime(recipe.cooktime);
     setRecipeWaittime(recipe.waittime);
-    setRecipeUserCreated(recipe.user_id);
+    setRecipeUserCreated(recipe.user_id || 0);
     setRecipeName(recipe.recipe_name);
     setClickedRecipe(recipe.id);
   };

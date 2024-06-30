@@ -93,7 +93,7 @@ export default function SortRecipesDropdown() {
                   color="inherit"
                   sx={{
                     zIndex: 1,
-                    fontWeight: 'bold', // Bolder font
+                    fontWeight: 'bolder', // Bolder font
                   }}
                 >
                   {image.title}

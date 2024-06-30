@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import AdminTabs from '../AdminTabs/AdminTabs';
+import { Typography, Container } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
+// Define custom styles using makeStyles
+const useStyles = makeStyles((theme) => ({
+  heading: {
+    marginBottom: theme.spacing(2),
+  },
+}));
 
-
-
-// Basic functional component structure for React with default state
-// value setup. When making a new component be sure to replace the
-// component name TemplateFunction with the name for the new component.
 function TemplateFunction(props) {
-  // Using hooks we're creating local state for a "heading" variable with
-  // a default value of 'Functional Component'
+  const classes = useStyles();
   const store = useSelector((store) => store);
   const [heading, setHeading] = useState('Functional Component');
 
   return (
-    <div>
-      <h2>Admin</h2>
+    <Container>
+      <Typography variant="h2" className={classes.heading}>
+        Admin
+      </Typography>
       <AdminTabs />
-    </div>
+    </Container>
   );
 }
 
