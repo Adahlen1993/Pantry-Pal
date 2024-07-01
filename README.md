@@ -1,3 +1,128 @@
+# PantryPal
+
+PantryPal is a recipe management application that helps users find recipes based on the ingredients they have at home. It includes features such as ingredient search, recipe display, and user management for admins.
+
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
+- [Technologies](#technologies)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Features
+
+- **User Authentication**: Secure login and registration for users.
+- **Ingredient Search**: Search for recipes based on available ingredients.
+- **Recipe Display**: Detailed display of recipes with images, instructions, and ingredient lists.
+- **Admin Management**: Admin functionalities for managing users and recipes.
+- **Pagination**: Efficient display of data with pagination support.
+- **Responsive Design**: Mobile-friendly interface.
+
+## Installation
+
+To set up the project locally, follow these steps:
+
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/Adahlen1993/Pantry-Pal
+    cd pantrypal
+    ```
+
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
+
+3. **Set up the database**:
+    - Create a PostgreSQL database.
+    - Update the `DATABASE_URL` in your `.env` file with your database connection string.
+
+4. **Run migrations**:
+    ```bash
+    npm run migrate
+    ```
+
+5. **Start the development server**:
+    ```bash
+    npm start
+    ```
+
+6. **Backend setup**:
+    - Ensure you have a running instance of your backend API.
+    - Update the API endpoints in the frontend code if necessary.
+
+## Usage
+
+Once the installation is complete, you can start using the app:
+
+1. **Login/Register**: Create an account or log in with your credentials.
+2. **Add Ingredients**: Use the search functionality to add ingredients to your pantry.
+3. **View Recipes**: Browse through the recipes available based on your ingredients.
+4. **Admin Panel**: If you are an admin, manage users and recipes through the admin panel.
+
+## API Endpoints
+
+Here are some of the key API endpoints used in the application:
+
+### User Authentication
+- `POST /api/auth/login`: Log in a user.
+- `POST /api/auth/register`: Register a new user.
+
+### Ingredients
+- `GET /api/ingredients`: Fetch all ingredients.
+- `POST /api/ingredients`: Add a new ingredient (Admin only).
+
+### Recipes
+- `GET /api/recipes`: Fetch all recipes.
+- `POST /api/recipes`: Add a new recipe (Admin only).
+- `GET /api/recipes/:id`: Fetch a specific recipe by ID.
+
+## Technologies
+
+- **Frontend**:
+    - React
+    - Redux
+    - Material-UI
+    - React Router
+    - Axios
+
+- **Backend**:
+    - Node.js
+    - Express
+    - PostgreSQL
+
+- **Others**:
+    - JWT for authentication
+    - Bcrypt for password hashing
+
+## Contributing
+
+Contributions are welcome! Please follow these steps to contribute:
+
+1. **Fork the repository**.
+2. **Create a new branch**:
+    ```bash
+    git checkout -b feature-branch
+    ```
+3. **Make your changes**.
+4. **Commit your changes**:
+    ```bash
+    git commit -m 'Add some feature'
+    ```
+5. **Push to the branch**:
+    ```bash
+    git push origin feature-branch
+    ```
+6. **Create a pull request**.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+
 # Prime Solo Project - Starting Repo
 
 This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
