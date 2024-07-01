@@ -49,7 +49,7 @@ function AdminRecipesTable() {
   const [show, setShow] = useState(false);
 
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(25);
 
   const handleClose = () => {
     setShow(false);
@@ -83,7 +83,7 @@ function AdminRecipesTable() {
     setRecipeInstructions(recipe.instructions);
     setRecipeLikes(recipe.likes);
     setRecipeImage(recipe.image || 'None');
-    setRecipeType({ type_id: recipe.type?.id || 0, type_name: recipe.type?.name || '' });
+    setRecipeType({ type: recipe.type});
     setRecipePreptime(recipe.preptime);
     setRecipeCooktime(recipe.cooktime);
     setRecipeWaittime(recipe.waittime);
@@ -146,7 +146,7 @@ function AdminRecipesTable() {
           </TableBody>
         </Table>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50, 100]}
+          rowsPerPageOptions={[25, 50, 100]}
           component="div"
           count={recipes.length}
           rowsPerPage={rowsPerPage}

@@ -55,7 +55,7 @@ function UserIngredientsTable() {
   const userIngredients = useSelector((store) => store.userIngredients);
   
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     dispatch({ type: "FETCH_USER_INGREDIENTS" });
