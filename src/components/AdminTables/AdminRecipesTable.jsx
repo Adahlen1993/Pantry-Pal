@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Button,
   Dialog,
@@ -22,18 +22,18 @@ import {
   Typography,
   TablePagination,
   Grid,
-} from '@mui/material';
-import { makeStyles } from '@mui/styles';
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   tableRow: {
-    '&:hover': {
+    "&:hover": {
       backgroundColor: theme.palette.action.hover,
-      cursor: 'pointer',
+      cursor: "pointer",
     },
   },
   deleteButton: {
-    zIndex: 1, // Ensure button click works properly even with row hover
+    zIndex: 1,
   },
 }));
 
@@ -42,25 +42,25 @@ function AdminRecipesTable() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_ALL_RECIPES' });
-    dispatch({ type: 'FETCH_RECIPE_TYPE' });
+    dispatch({ type: "FETCH_ALL_RECIPES" });
+    dispatch({ type: "FETCH_RECIPE_TYPE" });
   }, [dispatch]);
 
   const recipes = useSelector((store) => store.allRecipesReducer);
   const type = useSelector((store) => store.recipeTypeReducer);
 
-  const [recipeName, setRecipeName] = useState('');
-  const [recipeType, setRecipeType] = useState({ type_id: 0, type_name: '' });
-  const [recipeDescription, setRecipeDescription] = useState('');
-  const [recipeInstructions, setRecipeInstructions] = useState('');
+  const [recipeName, setRecipeName] = useState("");
+  const [recipeType, setRecipeType] = useState({ type_id: 0, type_name: "" });
+  const [recipeDescription, setRecipeDescription] = useState("");
+  const [recipeInstructions, setRecipeInstructions] = useState("");
   const [recipeLikes, setRecipeLikes] = useState(0);
-  const [recipeUserCreated, setRecipeUserCreated] = useState('');
-  const [recipeImage, setRecipeImage] = useState('');
+  const [recipeUserCreated, setRecipeUserCreated] = useState("");
+  const [recipeImage, setRecipeImage] = useState("");
   const [recipePreptime, setRecipePreptime] = useState(0);
   const [recipeWaittime, setRecipeWaittime] = useState(0);
   const [recipeCooktime, setRecipeCooktime] = useState(0);
-  const [recipeIngredientsList, setRecipeIngredientsList] = useState('');
-  const [clickedRecipe, setClickedRecipe] = useState('');
+  const [recipeIngredientsList, setRecipeIngredientsList] = useState("");
+  const [clickedRecipe, setClickedRecipe] = useState("");
   const [show, setShow] = useState(false);
   const [addMode, setAddMode] = useState(false);
 
@@ -71,7 +71,7 @@ function AdminRecipesTable() {
     setShow(false);
     if (addMode) {
       dispatch({
-        type: 'ADD_RECIPE',
+        type: "ADD_RECIPE",
         payload: {
           recipe_name: recipeName,
           recipe_type: recipeType.type_id,
@@ -88,7 +88,7 @@ function AdminRecipesTable() {
       });
     } else {
       dispatch({
-        type: 'UPDATE_RECIPE',
+        type: "UPDATE_RECIPE",
         payload: {
           id: clickedRecipe,
           recipe_name: recipeName,
@@ -114,12 +114,15 @@ function AdminRecipesTable() {
   const handleShow = (recipe) => {
     setAddMode(false);
     setShow(true);
-    setRecipeDescription(recipe.description || 'None');
+    setRecipeDescription(recipe.description || "None");
     setRecipeIngredientsList(recipe.recipe_ingredients_list);
     setRecipeInstructions(recipe.instructions);
     setRecipeLikes(recipe.likes);
-    setRecipeImage(recipe.image || 'None');
-    setRecipeType({ type_id: recipe.recipe_type || 0, type_name: type.find((t) => t.id === recipe.recipe_type)?.name || '' });
+    setRecipeImage(recipe.image || "None");
+    setRecipeType({
+      type_id: recipe.recipe_type || 0,
+      type_name: type.find((t) => t.id === recipe.recipe_type)?.name || "",
+    });
     setRecipePreptime(recipe.preptime);
     setRecipeCooktime(recipe.cooktime);
     setRecipeWaittime(recipe.waittime);
@@ -131,18 +134,18 @@ function AdminRecipesTable() {
   const handleAdd = () => {
     setAddMode(true);
     setShow(true);
-    setRecipeName('');
-    setRecipeType({ type_id: 0, type_name: '' });
-    setRecipeDescription('');
-    setRecipeInstructions('');
+    setRecipeName("");
+    setRecipeType({ type_id: 0, type_name: "" });
+    setRecipeDescription("");
+    setRecipeInstructions("");
     setRecipeLikes(0);
-    setRecipeUserCreated('');
-    setRecipeImage('');
+    setRecipeUserCreated("");
+    setRecipeImage("");
     setRecipePreptime(0);
     setRecipeWaittime(0);
     setRecipeCooktime(0);
-    setRecipeIngredientsList('');
-    setClickedRecipe('');
+    setRecipeIngredientsList("");
+    setClickedRecipe("");
   };
 
   const handleChangePage = (event, newPage) => {
@@ -154,11 +157,16 @@ function AdminRecipesTable() {
     setPage(0);
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, recipes.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage - Math.min(rowsPerPage, recipes.length - page * rowsPerPage);
 
   return (
     <div>
-      <Grid container justifyContent="flex-end" style={{ marginBottom: '1rem' }}>
+      <Grid
+        container
+        justifyContent="flex-end"
+        style={{ marginBottom: "1rem" }}
+      >
         <Button variant="contained" color="primary" onClick={handleAdd}>
           Add Recipe
         </Button>
@@ -181,21 +189,30 @@ function AdminRecipesTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {recipes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((recipe) => (
-              <TableRow onClick={() => handleShow(recipe)} key={recipe.id} className={classes.tableRow}>
-                <TableCell>{recipe.recipe_name}</TableCell>
-                <TableCell>{type.find((t) => t.id === recipe.recipe_type)?.name || 'None'}</TableCell>
-                <TableCell>{recipe.description || 'None'}</TableCell>
-                <TableCell>{recipe.instructions}</TableCell>
-                <TableCell>{recipe.likes}</TableCell>
-                <TableCell>{recipe.preptime}</TableCell>
-                <TableCell>{recipe.cooktime}</TableCell>
-                <TableCell>{recipe.waittime}</TableCell>
-                <TableCell>{recipe.user_id || 0}</TableCell>
-                <TableCell>{recipe.image || 'None'}</TableCell>
-                <TableCell>{recipe.recipe_ingredients_list}</TableCell>
-              </TableRow>
-            ))}
+            {recipes
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((recipe) => (
+                <TableRow
+                  onClick={() => handleShow(recipe)}
+                  key={recipe.id}
+                  className={classes.tableRow}
+                >
+                  <TableCell>{recipe.recipe_name}</TableCell>
+                  <TableCell>
+                    {type.find((t) => t.id === recipe.recipe_type)?.name ||
+                      "None"}
+                  </TableCell>
+                  <TableCell>{recipe.description || "None"}</TableCell>
+                  <TableCell>{recipe.instructions}</TableCell>
+                  <TableCell>{recipe.likes}</TableCell>
+                  <TableCell>{recipe.preptime}</TableCell>
+                  <TableCell>{recipe.cooktime}</TableCell>
+                  <TableCell>{recipe.waittime}</TableCell>
+                  <TableCell>{recipe.user_id || 0}</TableCell>
+                  <TableCell>{recipe.image || "None"}</TableCell>
+                  <TableCell>{recipe.recipe_ingredients_list}</TableCell>
+                </TableRow>
+              ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 53 * emptyRows }}>
                 <TableCell colSpan={11} />
@@ -214,7 +231,7 @@ function AdminRecipesTable() {
         />
       </TableContainer>
       <Dialog open={show} onClose={handleCancel}>
-        <DialogTitle>{addMode ? 'Add Recipe' : 'Edit Recipe'}</DialogTitle>
+        <DialogTitle>{addMode ? "Add Recipe" : "Edit Recipe"}</DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"
@@ -296,7 +313,8 @@ function AdminRecipesTable() {
               onChange={(e) =>
                 setRecipeType({
                   type_id: e.target.value,
-                  type_name: type.find((t) => t.id === e.target.value)?.name || '',
+                  type_name:
+                    type.find((t) => t.id === e.target.value)?.name || "",
                 })
               }
             >
@@ -308,7 +326,9 @@ function AdminRecipesTable() {
             </Select>
           </FormControl>
           <Box mt={2}>
-            <Typography variant="h6">Selected Type: {recipeType.type_name}</Typography>
+            <Typography variant="h6">
+              Selected Type: {recipeType.type_name}
+            </Typography>
           </Box>
         </DialogContent>
         <DialogActions>
@@ -316,7 +336,7 @@ function AdminRecipesTable() {
             Cancel
           </Button>
           <Button onClick={handleClose} color="primary">
-            {addMode ? 'Add Recipe' : 'Save Changes'}
+            {addMode ? "Add Recipe" : "Save Changes"}
           </Button>
         </DialogActions>
       </Dialog>

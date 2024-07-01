@@ -6,12 +6,12 @@ import Autocomplete from "@mui/material/Autocomplete";
 import Button from "@mui/material/Button";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from '@mui/material/Alert';
+import MuiAlert from "@mui/material/Alert";
 import { makeStyles, useTheme } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    width: '100%',
+    width: "100%",
     marginTop: theme.spacing(2),
   },
   textField: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: theme.spacing(2),
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up("lg")]: {
       marginTop: 0,
       marginLeft: theme.spacing(2),
     },
@@ -34,22 +34,22 @@ const Alert = React.forwardRef((props, ref) => {
 export default function FreeSolo() {
   const classes = useStyles();
   const theme = useTheme();
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const [selectIngredient, setSelectIngredient] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarMessage, setSnackbarMessage] = useState("");
   const ingredients = useSelector((store) => store.ingredients);
   const dispatch = useDispatch();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (selectIngredient) {
-      dispatch({ type: 'ADD_INGREDIENT', payload: selectIngredient });
-      dispatch({ type: 'FETCH_RECIPES' });
+      dispatch({ type: "ADD_INGREDIENT", payload: selectIngredient });
+      dispatch({ type: "FETCH_RECIPES" });
       handleSnackbarOpen(`Ingredient "${selectIngredient.name}" added!`);
       setSelectIngredient(null);
-      setInputValue('');
+      setInputValue("");
     }
   };
 
@@ -59,14 +59,14 @@ export default function FreeSolo() {
   };
 
   const handleSnackbarClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setSnackbarOpen(false);
   };
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_INGREDIENTS' });
+    dispatch({ type: "FETCH_INGREDIENTS" });
   }, [dispatch]);
 
   const filterOptions = (options, { inputValue }) => {
@@ -78,9 +78,9 @@ export default function FreeSolo() {
   return (
     <form className={classes.form} onSubmit={handleSubmit}>
       <Stack
-        direction={isMobile ? 'column' : 'row'}
+        direction={isMobile ? "column" : "row"}
         spacing={2}
-        alignItems={isMobile ? 'stretch' : 'center'}
+        alignItems={isMobile ? "stretch" : "center"}
       >
         <Autocomplete
           fullWidth
@@ -105,7 +105,7 @@ export default function FreeSolo() {
               className={classes.textField}
               InputProps={{
                 ...params.InputProps,
-                type: 'search',
+                type: "search",
               }}
             />
           )}
@@ -114,7 +114,7 @@ export default function FreeSolo() {
           variant="contained"
           color="primary"
           type="submit"
-          size={isMobile ? 'large' : 'medium'}
+          size={isMobile ? "large" : "medium"}
           className={classes.button}
           fullWidth={isMobile}
         >

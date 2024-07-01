@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Dialog,
@@ -15,18 +15,18 @@ import {
   TableRow,
   Paper,
   TablePagination,
-} from '@mui/material';
-import { makeStyles } from '@mui/styles';
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   tableRow: {
-    '&:hover': {
+    "&:hover": {
       backgroundColor: theme.palette.action.hover,
-      cursor: 'pointer',
+      cursor: "pointer",
     },
   },
   deleteButton: {
-    zIndex: 1, // Ensure button click works properly even with row hover
+    zIndex: 1,
   },
 }));
 
@@ -35,12 +35,12 @@ export default function AdminIngredientsTable() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_INGREDIENTS' });
+    dispatch({ type: "FETCH_INGREDIENTS" });
   }, [dispatch]);
 
   const ingredients = useSelector((store) => store.ingredients);
-  
-  const [ingredientName, setIngredientName] = useState('');
+
+  const [ingredientName, setIngredientName] = useState("");
   const [ingredientUser, setIngredientUser] = useState(false);
   const [ingredientId, setIngredientId] = useState(0);
   const [show, setShow] = useState(false);
@@ -50,7 +50,7 @@ export default function AdminIngredientsTable() {
   const handleClose = () => {
     setShow(false);
     dispatch({
-      type: 'UPDATE_INGREDIENTS',
+      type: "UPDATE_INGREDIENTS",
       payload: {
         id: ingredientId,
         name: ingredientName,
@@ -69,7 +69,7 @@ export default function AdminIngredientsTable() {
     setIngredientUser(ingredient.user_id);
     setIngredientId(ingredient.id);
   };
-
+  //  For future feature
   // const handleDelete = (ingId) => {
   //   dispatch({ type: 'DELETE_INGREDIENT_ADMIN', payload: { ingredients: ingId } });
   // };
@@ -83,7 +83,9 @@ export default function AdminIngredientsTable() {
     setPage(0);
   };
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, ingredients.length - page * rowsPerPage);
+  const emptyRows =
+    rowsPerPage -
+    Math.min(rowsPerPage, ingredients.length - page * rowsPerPage);
 
   return (
     <>
@@ -93,6 +95,7 @@ export default function AdminIngredientsTable() {
             <TableRow>
               <TableCell>Ingredients Name</TableCell>
               <TableCell>User Id</TableCell>
+              {/* for future feature */}
               {/* <TableCell>Delete</TableCell> */}
             </TableRow>
           </TableHead>
@@ -105,9 +108,14 @@ export default function AdminIngredientsTable() {
               ingredients
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((uI) => (
-                  <TableRow onClick={() => handleShow(uI)} key={uI.id} className={classes.tableRow}>
+                  <TableRow
+                    onClick={() => handleShow(uI)}
+                    key={uI.id}
+                    className={classes.tableRow}
+                  >
                     <TableCell>{uI.name}</TableCell>
                     <TableCell>{uI.user_id || 0}</TableCell>
+                    {/* for future feature */}
                     {/* <TableCell>
                       <Button
                         variant="contained"

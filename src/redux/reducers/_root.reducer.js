@@ -1,13 +1,13 @@
-import { combineReducers } from 'redux';
-import errors from './errors.reducer';
-import user from './user.reducer';
-import recipes from './recipes.reducer';
-import ingredients from './ingredients.reducer';
-import userIngredients from './user.ingredients.reducer';
-import allUser from './all.user.reducer';
-import recipePage from './recipe.page.reducer';
-import allRecipesReducer from './all.recipes.reducer';
-import recipeTypeReducer from './sprecipes.reducer';
+import { combineReducers } from "redux";
+import errors from "./errors.reducer";
+import user from "./user.reducer";
+import recipes from "./recipes.reducer";
+import ingredients from "./ingredients.reducer";
+import userIngredients from "./user.ingredients.reducer";
+import allUser from "./all.user.reducer";
+import recipePage from "./recipe.page.reducer";
+import allRecipesReducer from "./all.recipes.reducer";
+import recipeTypeReducer from "./api.spoonacular.reducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,9 +23,8 @@ const rootReducer = combineReducers({
   userIngredients,
   allUser,
   recipePage,
- allRecipesReducer,
- recipeTypeReducer,
- 
+  allRecipesReducer,
+  recipeTypeReducer,
 });
 
 export default rootReducer;

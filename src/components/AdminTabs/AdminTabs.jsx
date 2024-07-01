@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import AdminUserTable from '../AdminTables/AdminUserTable';
-import AdminRecipesTable from '../AdminTables/AdminRecipesTable';
-import AdminIngredientsTable from '../AdminTables/AdminIngredientsTable';
-import { makeStyles } from '@mui/styles';
+import React, { useState } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import AdminUserTable from "../AdminTables/AdminUserTable";
+import AdminRecipesTable from "../AdminTables/AdminRecipesTable";
+import AdminIngredientsTable from "../AdminTables/AdminIngredientsTable";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   tabContent: {
@@ -43,7 +43,7 @@ function AdminTabs() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: "100%" }}>
       <Tabs
         value={value}
         onChange={handleChange}

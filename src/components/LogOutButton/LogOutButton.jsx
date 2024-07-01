@@ -1,12 +1,12 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import MenuItem from '@mui/material/MenuItem';
-import { makeStyles } from '@mui/styles';
+import React from "react";
+import { useDispatch } from "react-redux";
+import MenuItem from "@mui/material/MenuItem";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   button: {
     marginLeft: theme.spacing(2),
-    color: 'inherit',
+    color: "inherit",
   },
 }));
 
@@ -15,7 +15,7 @@ function LogOutButton({ onClick }) {
   const dispatch = useDispatch();
 
   const logOut = () => {
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: "LOGOUT" });
     if (onClick) onClick();
   };
 

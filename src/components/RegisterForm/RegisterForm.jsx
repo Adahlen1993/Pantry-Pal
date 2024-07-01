@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { TextField, Button, Typography, Box, Alert } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { TextField, Button, Typography, Box, Alert } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   form: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    maxWidth: '400px',
-    margin: '0 auto',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    maxWidth: "400px",
+    margin: "0 auto",
   },
   input: {
     marginBottom: theme.spacing(2),
@@ -20,24 +20,24 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   alert: {
-    width: '100%',
+    width: "100%",
     marginBottom: theme.spacing(2),
   },
 }));
 
 function RegisterForm() {
   const classes = useStyles();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const errors = useSelector(store => store.errors);
-  const user = useSelector(store => store.user);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const errors = useSelector((store) => store.errors);
+  const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
     if (user.id) {
       // Redirect to /mypantry if user is logged in
-      history.push('/mypantry');
+      history.push("/mypantry");
     }
   }, [user, history]);
 
@@ -46,14 +46,14 @@ function RegisterForm() {
 
     if (username && password) {
       dispatch({
-        type: 'REGISTER',
+        type: "REGISTER",
         payload: {
           username: username,
           password: password,
         },
       });
     } else {
-      dispatch({ type: 'REGISTER_INPUT_ERROR' });
+      dispatch({ type: "REGISTER_INPUT_ERROR" });
     }
   };
 

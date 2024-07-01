@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Button,
   Dialog,
@@ -16,18 +16,18 @@ import {
   TextField,
   Menu,
   MenuItem,
-} from '@mui/material';
-import { makeStyles } from '@mui/styles';
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   tableRow: {
-    '&:hover': {
+    "&:hover": {
       backgroundColor: theme.palette.action.hover,
-      cursor: 'pointer',
+      cursor: "pointer",
     },
   },
   deleteButton: {
-    zIndex: 1, // Ensure button click works properly even with row hover
+    zIndex: 1,
   },
 }));
 
@@ -36,11 +36,11 @@ function AdminUserTable() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_ALL_USER' });
+    dispatch({ type: "FETCH_ALL_USER" });
   }, [dispatch]);
 
   const allUser = useSelector((store) => store.allUser);
-  const [editUsername, setEditUsername] = useState('');
+  const [editUsername, setEditUsername] = useState("");
   const [editUserAdmin, setEditUserAdmin] = useState(false);
   const [clickedUserId, setClickedUserId] = useState(0);
   const [show, setShow] = useState(false);
@@ -49,8 +49,12 @@ function AdminUserTable() {
   const handleClose = () => {
     setShow(false);
     dispatch({
-      type: 'UPDATE_USER',
-      payload: { id: clickedUserId, username: editUsername, admin: editUserAdmin },
+      type: "UPDATE_USER",
+      payload: {
+        id: clickedUserId,
+        username: editUsername,
+        admin: editUserAdmin,
+      },
     });
   };
 
@@ -65,9 +69,10 @@ function AdminUserTable() {
     setClickedUserId(user.id);
   };
 
-  const handleDelete = (userId) => {
-    dispatch({ type: 'DELETE_USER', payload: { user: userId } });
-  };
+  // For future feature
+  // const handleDelete = (userId) => {
+  //   dispatch({ type: 'DELETE_USER', payload: { user: userId } });
+  // };
 
   const handleMenuClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -100,6 +105,7 @@ function AdminUserTable() {
                 <TableCell>{user.username}</TableCell>
                 <TableCell>{user.password}</TableCell>
                 <TableCell>{String(user.admin)}</TableCell>
+                {/* For future feature */}
                 {/* <TableCell>
                   <Button
                     variant="contained"
@@ -130,7 +136,7 @@ function AdminUserTable() {
             onChange={(e) => setEditUsername(e.target.value)}
           />
           <Button onClick={handleMenuClick}>
-            Admin: {editUserAdmin ? 'True' : 'False'}
+            Admin: {editUserAdmin ? "True" : "False"}
           </Button>
           <Menu
             anchorEl={anchorEl}

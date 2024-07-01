@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import SortRecipesButtons from './SortRecipesButtons/SortRecipesButtons';
-import RecipeCards from './RecipeCards/RecipeCards';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
+import React from "react";
+import { useSelector } from "react-redux";
+import SortRecipesButtons from "./SortRecipesButtons/SortRecipesButtons";
+import RecipeCards from "./RecipeCards/RecipeCards";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -13,13 +13,13 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
   },
   heading: {
-    fontFamily: 'Kurale, serif',
-    textAlign: 'center',
+    fontFamily: "Kurale, serif",
+    textAlign: "center",
     marginBottom: theme.spacing(2),
   },
   content: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     gap: theme.spacing(2),
   },
 }));
@@ -42,4 +42,3 @@ function Recipes() {
 }
 
 export default Recipes;
-

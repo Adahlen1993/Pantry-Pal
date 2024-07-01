@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { defaultPantry } from './defaultPantry'; // Adjust the path if necessary
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { defaultPantry } from "./defaultPantry"; 
+import { useHistory } from "react-router-dom";
 import {
   Container,
   Typography,
@@ -9,8 +9,8 @@ import {
   CircularProgress,
   List,
   ListItem,
-} from '@mui/material';
-import { makeStyles } from '@mui/styles';
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -44,8 +44,10 @@ function IngredientList() {
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
-        const ingredientIds = defaultPantry.ingredient_ids.join(',');
-        const response = await axios.get(`/api/ingredients/tooltip?ids=${ingredientIds}`);
+        const ingredientIds = defaultPantry.ingredient_ids.join(",");
+        const response = await axios.get(
+          `/api/ingredients/tooltip?ids=${ingredientIds}`
+        );
         setIngredients(response.data);
         setLoading(false);
       } catch (error) {
@@ -81,7 +83,7 @@ function IngredientList() {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => history.push('/mypantry')}
+        onClick={() => history.push("/mypantry")}
         className={classes.button}
       >
         Return

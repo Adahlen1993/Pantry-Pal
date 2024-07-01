@@ -1,25 +1,30 @@
-import React, { useEffect } from 'react';
-import { Redirect, Route, HashRouter as Router, Switch } from 'react-router-dom';
-import 'semantic-ui-css/semantic.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useDispatch, useSelector } from 'react-redux';
-import Nav from '../Nav/Nav';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-import MyPantryPage from '../MyPantry/MyPantryPage';
-import Admin from '../Admin/Admin';
-import Recipes from '../Recipes/Recipes';
-import RecipePage from '../Recipes/RecipePage/RecipePage';
-import DefaultPantryToolTip from '../MyPantry/MyPantrySwitch/DefaultPantryToolTip';
-import './App.css';
+import React, { useEffect } from "react";
+import {
+  Redirect,
+  Route,
+  HashRouter as Router,
+  Switch,
+} from "react-router-dom";
+import "semantic-ui-css/semantic.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { useDispatch, useSelector } from "react-redux";
+import Nav from "../Nav/Nav";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import LoginPage from "../LoginPage/LoginPage";
+import RegisterPage from "../RegisterPage/RegisterPage";
+import MyPantryPage from "../MyPantry/MyPantryPage";
+import Admin from "../Admin/Admin";
+import Recipes from "../Recipes/Recipes";
+import RecipePage from "../Recipes/RecipePage/RecipePage";
+import DefaultPantryToolTip from "../MyPantry/MyPantrySwitch/DefaultPantryToolTip";
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
   return (

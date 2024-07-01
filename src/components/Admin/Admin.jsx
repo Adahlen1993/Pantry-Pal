@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import AdminTabs from '../AdminTabs/AdminTabs';
-import { Typography, Container } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import React, { useState } from "react";
+import AdminTabs from "../AdminTabs/AdminTabs";
+import { Typography, Container } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 
 // Define custom styles using makeStyles
 const useStyles = makeStyles((theme) => ({
@@ -11,10 +10,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TemplateFunction(props) {
+function Admin() {
   const classes = useStyles();
-  const store = useSelector((store) => store);
-  const [heading, setHeading] = useState('Functional Component');
 
   return (
     <Container>
@@ -26,4 +23,4 @@ function TemplateFunction(props) {
   );
 }
 
-export default TemplateFunction;
+export default Admin;

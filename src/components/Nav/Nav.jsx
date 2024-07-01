@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import LogOutButton from '../LogOutButton/LogOutButton';
-import { makeStyles } from '@mui/styles';
-import '../App/App.css';
-import justLogo from '../../../public/PantryPalJustLogo.png';
-import justName from '../../../public/PantryPalJustName.png';
+import React, { useState } from "react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import MenuIcon from "@mui/icons-material/Menu";
+import LogOutButton from "../LogOutButton/LogOutButton";
+import { makeStyles } from "@mui/styles";
+import "../App/App.css";
+import justLogo from "../../../public/PantryPalJustLogo.png";
+import justName from "../../../public/PantryPalJustName.png";
 
 const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
-    textDecoration: 'none',
-    color: 'inherit',
-    display: 'flex',
-    alignItems: 'center',
+    textDecoration: "none",
+    color: "inherit",
+    display: "flex",
+    alignItems: "center",
   },
   logo: {
     height: 50,
@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     height: 50,
     width: 180,
     marginLeft: theme.spacing(1),
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
     },
   },
   linkButton: {
@@ -55,22 +55,38 @@ function Nav() {
   };
 
   // Determine if the current path is login or register
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/register";
 
   return (
     <AppBar position="static">
       <Toolbar>
-        <Typography variant="h6" component={RouterLink} to="/home" className={classes.title}>
-          <img src={justLogo} alt='logo' className={classes.logo} />
-          <img src={justName} alt='name' className={classes.name} />
+        <Typography
+          variant="h6"
+          component={RouterLink}
+          to="/home"
+          className={classes.title}
+        >
+          <img src={justLogo} alt="logo" className={classes.logo} />
+          <img src={justName} alt="name" className={classes.name} />
         </Typography>
 
         {!isAuthPage && (
           <>
-            <Button component={RouterLink} to="/mypantry" color="inherit" className={classes.linkButton}>
+            <Button
+              component={RouterLink}
+              to="/mypantry"
+              color="inherit"
+              className={classes.linkButton}
+            >
               MyPantry
             </Button>
-            <Button component={RouterLink} to="/recipes" color="inherit" className={classes.linkButton}>
+            <Button
+              component={RouterLink}
+              to="/recipes"
+              color="inherit"
+              className={classes.linkButton}
+            >
               Recipes
             </Button>
 
@@ -88,12 +104,21 @@ function Nav() {
               onClose={handleMenuClose}
             >
               {user.id === null ? (
-                <MenuItem component={RouterLink} to="/login" onClick={handleMenuClose}>
+                <MenuItem
+                  component={RouterLink}
+                  to="/login"
+                  onClick={handleMenuClose}
+                >
                   Login / Register
                 </MenuItem>
               ) : (
                 <div>
-                  <MenuItem key="home" component={RouterLink} to="/user" onClick={handleMenuClose}>
+                  <MenuItem
+                    key="home"
+                    component={RouterLink}
+                    to="/user"
+                    onClick={handleMenuClose}
+                  >
                     Home
                   </MenuItem>
                   <LogOutButton key="logout" onClick={handleMenuClose} />
@@ -101,7 +126,11 @@ function Nav() {
               )}
 
               {user.admin && (
-                <MenuItem component={RouterLink} to="/admin" onClick={handleMenuClose}>
+                <MenuItem
+                  component={RouterLink}
+                  to="/admin"
+                  onClick={handleMenuClose}
+                >
                   Admin
                 </MenuItem>
               )}

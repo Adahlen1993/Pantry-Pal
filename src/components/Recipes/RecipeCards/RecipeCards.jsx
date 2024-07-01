@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import { makeStyles } from '@mui/styles';
-import defaultpic from '../defaultpic/defaultpic_copy.png';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import { makeStyles } from "@mui/styles";
+import defaultpic from "../defaultpic/defaultpic_copy.png";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(4),
   },
   card: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   media: {
     height: 140,
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   heading: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: theme.spacing(4),
   },
 }));
@@ -42,20 +42,22 @@ function Recipes() {
   const history = useHistory();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_RECIPES' });
+    dispatch({ type: "FETCH_RECIPES" });
   }, [dispatch]);
 
   const recipes = useSelector((store) => store.recipes);
 
   function displayRecipe(id) {
-    dispatch({ type: 'FETCH_RECIPE_PAGE' });
+    dispatch({ type: "FETCH_RECIPE_PAGE" });
     history.push(`recipe/${id}`);
   }
 
   return (
     <Container className={classes.container}>
       {recipes.length === 0 ? (
-        <Typography variant="h2" className={classes.heading}>Add Ingredients</Typography>
+        <Typography variant="h2" className={classes.heading}>
+          Add Ingredients
+        </Typography>
       ) : (
         <Grid container spacing={3}>
           {recipes.map((recipe) => (

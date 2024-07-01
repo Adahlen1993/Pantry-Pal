@@ -24,8 +24,8 @@ const useStyles = makeStyles((theme) => ({
   },
   tableHeadCell: {
     color: theme.palette.common.white,
-    fontWeight: 'bold',
-    fontSize: '2rem', // Increase the font size
+    fontWeight: "bold",
+    fontSize: "2rem",
     textShadow: `
       1px 1px 0 white, 
       -1px -1px 0 white, 
@@ -35,13 +35,13 @@ const useStyles = makeStyles((theme) => ({
       -1px 0 0 white, 
       0 1px 0 white, 
       0 -1px 0 white
-    `, // Create a white outline effect
+    `,
   },
   tableCell: {
     fontFamily: theme.typography.fontFamily,
   },
   noIngredients: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: theme.spacing(2),
   },
   deleteButton: {
@@ -53,7 +53,7 @@ function UserIngredientsTable() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userIngredients = useSelector((store) => store.userIngredients);
-  
+
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -83,7 +83,9 @@ function UserIngredientsTable() {
             <Table>
               <TableHead className={classes.tableHead}>
                 <TableRow>
-                  <TableCell className={classes.tableHeadCell}>Your Ingredients</TableCell>
+                  <TableCell className={classes.tableHeadCell}>
+                    Your Ingredients
+                  </TableCell>
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
@@ -95,23 +97,25 @@ function UserIngredientsTable() {
                     </TableCell>
                   </TableRow>
                 ) : (
-                  userIngredients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((uI) => (
-                    <TableRow key={uI.id}>
-                      <TableCell className={classes.tableCell}>
-                        {uI.name}
-                      </TableCell>
-                      <TableCell className={classes.tableCell}>
-                        <IconButton
-                          onClick={() => handleDelete(uI.user_ing_id)}
-                          aria-label="delete"
-                          size="large"
-                          className={classes.deleteButton}
-                        >
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))
+                  userIngredients
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((uI) => (
+                      <TableRow key={uI.id}>
+                        <TableCell className={classes.tableCell}>
+                          {uI.name}
+                        </TableCell>
+                        <TableCell className={classes.tableCell}>
+                          <IconButton
+                            onClick={() => handleDelete(uI.user_ing_id)}
+                            aria-label="delete"
+                            size="large"
+                            className={classes.deleteButton}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    ))
                 )}
               </TableBody>
             </Table>

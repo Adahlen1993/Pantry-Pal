@@ -1,20 +1,20 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#4caf50', // Green for freshness
+      main: "#4caf50", // Green for freshness
     },
     secondary: {
-      main: '#ffeb3b', // Yellow for energy and vibrancy
+      main: "#ffeb3b", // Yellow for energy and vibrancy
     },
     background: {
-      default: '#ffffff', // White background for clean look
-      paper: '#f5f5f5', // Slightly off-white for cards and papers
+      default: "#ffffff", // White background for clean look
+      paper: "#f5f5f5", // Slightly off-white for cards and papers
     },
     text: {
-      primary: '#333333', // Dark text for readability
-      secondary: '#757575', // Grey for secondary text
+      primary: "#333333", // Dark text for readability
+      secondary: "#757575", // Grey for secondary text
     },
   },
   typography: {
@@ -24,7 +24,6 @@ const theme = createTheme({
     },
     h2: {
       fontFamily: '"Merriweather", "serif"',
-      
     },
     h3: {
       fontFamily: '"Merriweather", "serif"',
@@ -39,8 +38,8 @@ const theme = createTheme({
       fontFamily: '"Merriweather", "serif"',
     },
     body1: {
-      fontSize: '1rem',
-      color: '#333333',
+      fontSize: "1rem",
+      color: "#333333",
     },
     // Add more typography settings as needed
   },
@@ -49,11 +48,11 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          letterSpacing: '1px',
-          fontSize: '15px',
-          borderRadius: '8px',
-          textTransform: 'none',
-          color: 'black', // Main text color
+          letterSpacing: "1px",
+          fontSize: "15px",
+          borderRadius: "8px",
+          textTransform: "none",
+          color: "black", // Main text color
           textShadow: `
             1px 1px 0 white, 
             -1px -1px 0 white, 
@@ -66,9 +65,9 @@ const theme = createTheme({
           `, // Create a white outline
         },
         containedPrimary: {
-          backgroundColor: '#4caf50',
-          '&:hover': {
-            backgroundColor: '#388e3c',
+          backgroundColor: "#4caf50",
+          "&:hover": {
+            backgroundColor: "#388e3c",
           },
         },
       },
@@ -76,7 +75,7 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          backgroundColor: '#4caf50',
+          backgroundColor: "#4caf50",
         },
       },
     },
