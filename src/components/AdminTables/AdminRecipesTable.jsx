@@ -22,8 +22,22 @@ import {
   Typography,
   TablePagination,
 } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  tableRow: {
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+      cursor: 'pointer',
+    },
+  },
+  deleteButton: {
+    zIndex: 1, // Ensure button click works properly even with row hover
+  },
+}));
 
 function AdminRecipesTable() {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -83,7 +97,7 @@ function AdminRecipesTable() {
     setRecipeInstructions(recipe.instructions);
     setRecipeLikes(recipe.likes);
     setRecipeImage(recipe.image || 'None');
-    setRecipeType({ type: recipe.type});
+    setRecipeType({ type_id: recipe.type.id, type_name: recipe.type.name });
     setRecipePreptime(recipe.preptime);
     setRecipeCooktime(recipe.cooktime);
     setRecipeWaittime(recipe.waittime);
@@ -124,7 +138,7 @@ function AdminRecipesTable() {
           </TableHead>
           <TableBody>
             {recipes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((recipe) => (
-              <TableRow onClick={() => handleShow(recipe)} key={recipe.id}>
+              <TableRow onClick={() => handleShow(recipe)} key={recipe.id} className={classes.tableRow}>
                 <TableCell>{recipe.recipe_name}</TableCell>
                 <TableCell>{recipe.recipe_type}</TableCell>
                 <TableCell>{recipe.description || 'None'}</TableCell>

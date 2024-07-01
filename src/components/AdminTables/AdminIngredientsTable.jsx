@@ -16,8 +16,22 @@ import {
   Paper,
   TablePagination,
 } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  tableRow: {
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+      cursor: 'pointer',
+    },
+  },
+  deleteButton: {
+    zIndex: 1, // Ensure button click works properly even with row hover
+  },
+}));
 
 export default function AdminIngredientsTable() {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -91,7 +105,7 @@ export default function AdminIngredientsTable() {
               ingredients
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((uI) => (
-                  <TableRow onClick={() => handleShow(uI)} key={uI.id}>
+                  <TableRow onClick={() => handleShow(uI)} key={uI.id} className={classes.tableRow}>
                     <TableCell>{uI.name}</TableCell>
                     <TableCell>{uI.user_id || 0}</TableCell>
                     <TableCell>
@@ -102,6 +116,7 @@ export default function AdminIngredientsTable() {
                           e.stopPropagation();
                           handleDelete(uI.id);
                         }}
+                        className={classes.deleteButton}
                       >
                         Delete
                       </Button>

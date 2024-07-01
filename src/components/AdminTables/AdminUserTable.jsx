@@ -1,22 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  TextField,
+  Menu,
+  MenuItem,
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles((theme) => ({
+  tableRow: {
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+      cursor: 'pointer',
+    },
+  },
+  deleteButton: {
+    zIndex: 1, // Ensure button click works properly even with row hover
+  },
+}));
 
 function AdminUserTable() {
+  const classes = useStyles();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -76,12 +92,24 @@ function AdminUserTable() {
           </TableHead>
           <TableBody>
             {allUser.map((user) => (
-              <TableRow key={user.id} onClick={() => handleShow(user)}>
+              <TableRow
+                key={user.id}
+                onClick={() => handleShow(user)}
+                className={classes.tableRow}
+              >
                 <TableCell>{user.username}</TableCell>
                 <TableCell>{user.password}</TableCell>
                 <TableCell>{String(user.admin)}</TableCell>
                 <TableCell>
-                  <Button variant="contained" color="secondary" onClick={(e) => { e.stopPropagation(); handleDelete(user.id); }}>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDelete(user.id);
+                    }}
+                    className={classes.deleteButton}
+                  >
                     Delete
                   </Button>
                 </TableCell>
