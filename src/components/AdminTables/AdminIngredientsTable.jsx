@@ -70,9 +70,9 @@ export default function AdminIngredientsTable() {
     setIngredientId(ingredient.id);
   };
 
-  const handleDelete = (ingId) => {
-    dispatch({ type: 'DELETE_INGREDIENT_ADMIN', payload: { ingredients: ingId } });
-  };
+  // const handleDelete = (ingId) => {
+  //   dispatch({ type: 'DELETE_INGREDIENT_ADMIN', payload: { ingredients: ingId } });
+  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -93,7 +93,7 @@ export default function AdminIngredientsTable() {
             <TableRow>
               <TableCell>Ingredients Name</TableCell>
               <TableCell>User Id</TableCell>
-              <TableCell>Delete</TableCell>
+              {/* <TableCell>Delete</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -108,7 +108,7 @@ export default function AdminIngredientsTable() {
                   <TableRow onClick={() => handleShow(uI)} key={uI.id} className={classes.tableRow}>
                     <TableCell>{uI.name}</TableCell>
                     <TableCell>{uI.user_id || 0}</TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                       <Button
                         variant="contained"
                         color="secondary"
@@ -120,7 +120,7 @@ export default function AdminIngredientsTable() {
                       >
                         Delete
                       </Button>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 ))
             )}

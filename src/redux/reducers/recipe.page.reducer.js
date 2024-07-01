@@ -1,8 +1,12 @@
 const recipePageReducer = (state = {}, action) => {
-    if (action.type === 'SET_RECIPE_PAGE') {
-       return action.payload;
-    }
-    return state
+   switch (action.type) {
+     case 'SET_RECIPE_PAGE':
+       return { ...state, data: action.payload, error: null };
+     case 'SET_RECIPE_PAGE_ERROR':
+       return { ...state, error: action.payload };
+     default:
+       return state;
+   }
  };
  
  export default recipePageReducer;

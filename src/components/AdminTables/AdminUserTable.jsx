@@ -87,7 +87,7 @@ function AdminUserTable() {
               <TableCell>Username</TableCell>
               <TableCell>Password</TableCell>
               <TableCell>Admin</TableCell>
-              <TableCell></TableCell>
+              {/* <TableCell></TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -100,7 +100,7 @@ function AdminUserTable() {
                 <TableCell>{user.username}</TableCell>
                 <TableCell>{user.password}</TableCell>
                 <TableCell>{String(user.admin)}</TableCell>
-                <TableCell>
+                {/* <TableCell>
                   <Button
                     variant="contained"
                     color="secondary"
@@ -112,7 +112,7 @@ function AdminUserTable() {
                   >
                     Delete
                   </Button>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))}
           </TableBody>
