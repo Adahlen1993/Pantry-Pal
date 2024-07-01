@@ -11,6 +11,7 @@ import MyPantryPage from '../MyPantry/MyPantryPage';
 import Admin from '../Admin/Admin';
 import Recipes from '../Recipes/Recipes';
 import RecipePage from '../Recipes/RecipePage/RecipePage';
+import DefaultPantryToolTip from '../MyPantry/MyPantrySwitch/DefaultPantryToolTip';
 import './App.css';
 
 function App() {
@@ -38,6 +39,10 @@ function App() {
 
           <ProtectedRoute exact path="/admin">
             <Admin />
+          </ProtectedRoute>
+
+          <ProtectedRoute exact path="/defaultpantry">
+            <DefaultPantryToolTip />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/recipe/:id">

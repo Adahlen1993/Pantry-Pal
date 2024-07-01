@@ -19,20 +19,34 @@ router.get('/', (req, res) => {
     } 
 });
 
-// router.put('/search', rejectUnauthenticated, async (req, res) => {
-//     console.log('user',req.body.id);
+router.get('/tooltip', (req, res) => {
+  console.log('/ingredients GET route');
+  console.log('is authenticated?', req.isAuthenticated());
+  console.log('user', req.user);
+
+  const ingredientIds = req.query.ids; // Expecting a comma-separated string of IDs
+
+  if (!ingredientIds) {
+      return res.status(400).send('No ingredient IDs provided');
+  }
+
+  const idsArray = ingredientIds.split(',').map(id => parseInt(id, 10));
+
+  if (idsArray.some(isNaN)) {
+      return res.status(400).send('Invalid ingredient IDs');
+  }
+
+  const queryText = `SELECT * FROM "ingredients" WHERE "id" = ANY($1::int[]);`;
   
-//     try{
-//       const result = await pool.query(
-//         `SELECT * FROM ingredients WHERE id = $1`, [ req.body.id]
-//       );
-//       res.send(result.rows);
-//     } catch (err) {
-//       console.error(err);
-//       res.sendStatus(500);
-//     }
-//     // endpoint functionality
-//   });
+  pool.query(queryText, [idsArray])
+      .then((result) => {
+          res.send(result.rows);
+      })
+      .catch((error) => {
+          console.log(error);
+          res.sendStatus(500);
+      });
+});
 
 router.put('/', rejectUnauthenticated, async (req, res) => {
     console.log('user',req.user);
