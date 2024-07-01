@@ -8,14 +8,22 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     console.log('/pet GET route');
     console.log('is authenticated?', req.isAuthenticated());
     console.log('user', req.user);
-    let queryText = `SELECT r.id, r.recipe_name, r.description, r.instructions, r.favorite, r.likes
+    let queryText = `SELECT 
+    r.id, 
+    r.recipe_name, 
+    r.description, 
+    r.instructions, 
+    r.favorite, 
+    r.likes,
+    r.image -- Add the image field here
 FROM recipes r
 JOIN recipes_ingredients ri ON r.id = ri.recipe_id
 JOIN ingredients i ON ri.ingredients_id = i.id
 JOIN user_ingredients ui ON i.id = ui.ingredients_id
 WHERE ui.user_id = $1
 GROUP BY r.id
-HAVING COUNT(DISTINCT ri.ingredients_id) = (SELECT COUNT(*) FROM recipes_ingredients WHERE recipe_id = r.id)
+HAVING COUNT(DISTINCT ri.ingredients_id) = (SELECT COUNT(*) FROM recipes_ingredients WHERE recipe_id = r.id);
+
 `;
     pool.query(queryText, [req.user.id] ).then((result) => {
         res.send(result.rows);

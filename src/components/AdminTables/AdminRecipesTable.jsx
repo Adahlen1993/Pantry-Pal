@@ -119,7 +119,7 @@ function AdminRecipesTable() {
     setRecipeInstructions(recipe.instructions);
     setRecipeLikes(recipe.likes);
     setRecipeImage(recipe.image || 'None');
-    setRecipeType({ type_id: recipe.type.id, type_name: recipe.type.name });
+    setRecipeType({ type_id: recipe.recipe_type || 0, type_name: type.find((t) => t.id === recipe.recipe_type)?.name || '' });
     setRecipePreptime(recipe.preptime);
     setRecipeCooktime(recipe.cooktime);
     setRecipeWaittime(recipe.waittime);
@@ -184,7 +184,7 @@ function AdminRecipesTable() {
             {recipes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((recipe) => (
               <TableRow onClick={() => handleShow(recipe)} key={recipe.id} className={classes.tableRow}>
                 <TableCell>{recipe.recipe_name}</TableCell>
-                <TableCell>{recipe.recipe_type}</TableCell>
+                <TableCell>{type.find((t) => t.id === recipe.recipe_type)?.name || 'None'}</TableCell>
                 <TableCell>{recipe.description || 'None'}</TableCell>
                 <TableCell>{recipe.instructions}</TableCell>
                 <TableCell>{recipe.likes}</TableCell>
@@ -296,7 +296,7 @@ function AdminRecipesTable() {
               onChange={(e) =>
                 setRecipeType({
                   type_id: e.target.value,
-                  type_name: type.find((t) => t.id === e.target.value).name,
+                  type_name: type.find((t) => t.id === e.target.value)?.name || '',
                 })
               }
             >

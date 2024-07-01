@@ -64,7 +64,7 @@ function Recipes() {
                 <CardMedia
                   component="img"
                   className={classes.media}
-                  image={recipe.image || defaultpic}
+                  image={recipe.image ? recipe.image : defaultpic}
                   alt={recipe.recipe_name}
                 />
                 <CardContent className={classes.content}>
