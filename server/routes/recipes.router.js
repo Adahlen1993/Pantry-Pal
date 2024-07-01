@@ -87,21 +87,61 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// This route *should* add a pet for the logged in user
-router.post('/', rejectUnauthenticated, async (req, res) => {
-    console.log('/pet POST route');
+router.post('/all', rejectUnauthenticated, async (req, res) => {
+    console.log('/recipes POST route');
     console.log(req.body);
     console.log('is authenticated?', req.isAuthenticated());
     console.log('user', req.user);
 
+    const {
+        recipe_name,
+        recipe_type,
+        description,
+        instructions,
+        likes,
+        preptime,
+        cooktime,
+        waittime,
+        user_id,
+        image,
+        recipe_ingredients_list
+    } = req.body;
+
     try {
-        const result = await pool.query(`INSERT INTO "pets" ("name", "user_id") VALUES ($1, $2) RETURNING *;`, [req.body.name, req.user.id]);
+        const result = await pool.query(
+            `INSERT INTO "recipes" (
+                "recipe_name",
+                "recipe_type",
+                "description",
+                "instructions",
+                "likes",
+                "preptime",
+                "cooktime",
+                "waittime",
+                "user_id",
+                "image",
+                "recipe_ingredients_list"
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+            RETURNING *;`,
+            [
+                recipe_name,
+                recipe_type,
+                description,
+                instructions,
+                likes,
+                preptime,
+                cooktime,
+                waittime,
+                req.user.id, // assuming you want to use the authenticated user's ID
+                image,
+                recipe_ingredients_list
+            ]
+        );
         res.send(result.rows[0]);
     } catch (err) {
         console.error(err);
         res.sendStatus(500);
     }
-    
 });
 
 

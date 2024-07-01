@@ -21,6 +21,7 @@ import {
   Box,
   Typography,
   TablePagination,
+  Grid,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
@@ -52,38 +53,58 @@ function AdminRecipesTable() {
   const [recipeType, setRecipeType] = useState({ type_id: 0, type_name: '' });
   const [recipeDescription, setRecipeDescription] = useState('');
   const [recipeInstructions, setRecipeInstructions] = useState('');
-  const [recipeLikes, setRecipeLikes] = useState('');
+  const [recipeLikes, setRecipeLikes] = useState(0);
   const [recipeUserCreated, setRecipeUserCreated] = useState('');
   const [recipeImage, setRecipeImage] = useState('');
-  const [recipePreptime, setRecipePreptime] = useState('');
-  const [recipeWaittime, setRecipeWaittime] = useState('');
-  const [recipeCooktime, setRecipeCooktime] = useState('');
+  const [recipePreptime, setRecipePreptime] = useState(0);
+  const [recipeWaittime, setRecipeWaittime] = useState(0);
+  const [recipeCooktime, setRecipeCooktime] = useState(0);
   const [recipeIngredientsList, setRecipeIngredientsList] = useState('');
   const [clickedRecipe, setClickedRecipe] = useState('');
   const [show, setShow] = useState(false);
+  const [addMode, setAddMode] = useState(false);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(25);
 
   const handleClose = () => {
     setShow(false);
-    dispatch({
-      type: 'UPDATE_RECIPE',
-      payload: {
-        id: clickedRecipe,
-        recipe_name: recipeName,
-        recipe_type: recipeType.type_id,
-        description: recipeDescription,
-        instructions: recipeInstructions,
-        likes: recipeLikes,
-        preptime: recipePreptime,
-        cooktime: recipeCooktime,
-        waittime: recipeWaittime,
-        user_id: recipeUserCreated,
-        image: recipeImage,
-        recipe_ingredients_list: recipeIngredientsList,
-      },
-    });
+    if (addMode) {
+      dispatch({
+        type: 'ADD_RECIPE',
+        payload: {
+          recipe_name: recipeName,
+          recipe_type: recipeType.type_id,
+          description: recipeDescription,
+          instructions: recipeInstructions,
+          likes: recipeLikes,
+          preptime: recipePreptime,
+          cooktime: recipeCooktime,
+          waittime: recipeWaittime,
+          user_id: recipeUserCreated,
+          image: recipeImage,
+          recipe_ingredients_list: recipeIngredientsList,
+        },
+      });
+    } else {
+      dispatch({
+        type: 'UPDATE_RECIPE',
+        payload: {
+          id: clickedRecipe,
+          recipe_name: recipeName,
+          recipe_type: recipeType.type_id,
+          description: recipeDescription,
+          instructions: recipeInstructions,
+          likes: recipeLikes,
+          preptime: recipePreptime,
+          cooktime: recipeCooktime,
+          waittime: recipeWaittime,
+          user_id: recipeUserCreated,
+          image: recipeImage,
+          recipe_ingredients_list: recipeIngredientsList,
+        },
+      });
+    }
   };
 
   const handleCancel = () => {
@@ -91,6 +112,7 @@ function AdminRecipesTable() {
   };
 
   const handleShow = (recipe) => {
+    setAddMode(false);
     setShow(true);
     setRecipeDescription(recipe.description || 'None');
     setRecipeIngredientsList(recipe.recipe_ingredients_list);
@@ -106,6 +128,23 @@ function AdminRecipesTable() {
     setClickedRecipe(recipe.id);
   };
 
+  const handleAdd = () => {
+    setAddMode(true);
+    setShow(true);
+    setRecipeName('');
+    setRecipeType({ type_id: 0, type_name: '' });
+    setRecipeDescription('');
+    setRecipeInstructions('');
+    setRecipeLikes(0);
+    setRecipeUserCreated('');
+    setRecipeImage('');
+    setRecipePreptime(0);
+    setRecipeWaittime(0);
+    setRecipeCooktime(0);
+    setRecipeIngredientsList('');
+    setClickedRecipe('');
+  };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -119,6 +158,11 @@ function AdminRecipesTable() {
 
   return (
     <div>
+      <Grid container justifyContent="flex-end" style={{ marginBottom: '1rem' }}>
+        <Button variant="contained" color="primary" onClick={handleAdd}>
+          Add Recipe
+        </Button>
+      </Grid>
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
@@ -170,7 +214,7 @@ function AdminRecipesTable() {
         />
       </TableContainer>
       <Dialog open={show} onClose={handleCancel}>
-        <DialogTitle>Edit Recipe</DialogTitle>
+        <DialogTitle>{addMode ? 'Add Recipe' : 'Edit Recipe'}</DialogTitle>
         <DialogContent>
           <TextField
             margin="dense"
@@ -272,7 +316,7 @@ function AdminRecipesTable() {
             Cancel
           </Button>
           <Button onClick={handleClose} color="primary">
-            Save Changes
+            {addMode ? 'Add Recipe' : 'Save Changes'}
           </Button>
         </DialogActions>
       </Dialog>

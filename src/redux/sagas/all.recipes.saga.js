@@ -32,7 +32,8 @@ function* addRecipes(action) {
 
 function* allRecipesSaga() {
   yield takeLatest('UPDATE_RECIPE', editRecipe),
-  yield takeLatest('FETCH_ALL_RECIPES', fetchAllRecipes)
+  yield takeLatest('FETCH_ALL_RECIPES', fetchAllRecipes),
+  yield takeLatest('ADD_RECIPE', addRecipes)
 }
 
 export default allRecipesSaga;
