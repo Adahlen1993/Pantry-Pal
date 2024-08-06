@@ -18,6 +18,7 @@ import Recipes from "../Recipes/Recipes";
 import RecipePage from "../Recipes/RecipePage/RecipePage";
 import DefaultPantryToolTip from "../MyPantry/MyPantrySwitch/DefaultPantryToolTip";
 import "./App.css";
+import MyPantryPageSpoon from "../MyPantrySpoon/MyPantryPageSpoon";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,8 +35,12 @@ function App() {
         <Switch>
           <Redirect exact from="/" to="/home" />
 
-          <ProtectedRoute exact path="/mypantry">
+          {/* <ProtectedRoute exact path="/mypantry">
             <MyPantryPage />
+          </ProtectedRoute> */}
+
+          <ProtectedRoute exact path="/mypantryspoon">
+            <MyPantryPageSpoon />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/recipes">

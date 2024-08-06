@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MyPantryPage() {
+export default function MyPantryPageSpoon() {
   const classes = useStyles();
   const dispatch = useDispatch();
 

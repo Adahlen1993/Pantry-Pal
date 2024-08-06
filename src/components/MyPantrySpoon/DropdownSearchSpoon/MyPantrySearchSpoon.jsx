@@ -31,14 +31,14 @@ const Alert = React.forwardRef((props, ref) => {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function FreeSolo() {
+export default function FreeSoloSpoon() {
   const classes = useStyles();
   const theme = useTheme();
   const [inputValue, setInputValue] = useState("");
   const [selectIngredient, setSelectIngredient] = useState(null);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
-  const ingredients = useSelector((store) => store.ingredients);
+  const ingredients = useSelector((store) => store.ingredientsSpoonReducer);
   const dispatch = useDispatch();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -66,7 +66,7 @@ export default function FreeSolo() {
   };
 
   useEffect(() => {
-    dispatch({ type: "FETCH_INGREDIENTS" });
+    dispatch({ type: "FETCH_INGREDIENTS_SPOON" });
   }, [dispatch]);
 
   const filterOptions = (options, { inputValue }) => {

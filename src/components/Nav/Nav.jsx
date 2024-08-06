@@ -73,13 +73,21 @@ function Nav() {
 
         {!isAuthPage && (
           <>
-            <Button
+            {/* <Button
               component={RouterLink}
               to="/mypantry"
               color="inherit"
               className={classes.linkButton}
             >
               MyPantry
+            </Button> */}
+            <Button
+              component={RouterLink}
+              to="/mypantryspoon"
+              color="inherit"
+              className={classes.linkButton}
+            >
+              MyPantry Spoon
             </Button>
             <Button
               component={RouterLink}
