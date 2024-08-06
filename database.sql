@@ -7,6 +7,15 @@ CREATE TABLE IF NOT EXISTS "user" (
     PRIMARY KEY ("id")
 );
 
+CREATE TABLE IF NOT EXISTS "ingredients_spoon" (
+    "id" bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE,
+    "name" text NOT NULL,
+    "spoon_id" bigint NOT NULL,
+    "user_id" bigint DEFAULT NULL,
+    PRIMARY KEY ("id"),
+    FOREIGN KEY ("user_id") REFERENCES "user"("id")
+);
+
 CREATE TABLE IF NOT EXISTS "ingredients" (
     "id" bigint GENERATED ALWAYS AS IDENTITY NOT NULL UNIQUE,
     "name" text NOT NULL,
