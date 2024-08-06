@@ -4,7 +4,7 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Tooltip from "@mui/material/Tooltip";
 import axios from "axios";
-import { defaultPantry } from "./defaultPantry";
+import { defaultPantry } from "./defaultPantrySpoon";
 import { Link } from "react-router-dom";
 
 function MyPantrySwitch() {

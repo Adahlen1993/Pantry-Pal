@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UserIngredientsTable from "./UserIngredientsTable/UserIngredientsTable";
-import MyPantrySwitch from "./MyPantrySwitch/MyPantrySwitch";
+import UserIngredientsTable from "./UserIngredientsTableSpoon/UserIngredientsTableSpoon";
+import MyPantrySwitch from "./MyPantrySwitch/MyPantrySwitchSpoon";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 
-import TestSearch from "./DropdownSearch/MyPantrySearch";
+import TestSearch from "./DropdownSearchSpoon/MyPantrySearchSpoon";
 
 const useStyles = makeStyles((theme) => ({
   container: {
