@@ -14,4 +14,5 @@ VALUES
     ('Vietnamese'),
     ('Turkish'),
     ('Moroccan'),
-    ('American');
+    ('American'),
+    ('Other');
