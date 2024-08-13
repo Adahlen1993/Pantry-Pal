@@ -7,9 +7,9 @@ const {
 
 router.get("/", (req, res) => {
   {
-    let queryText = `SELECT user_ingredients.id, ingredients.name, ingredients.id AS user_ing_id
-FROM ingredients
-JOIN user_ingredients ON ingredients.id = user_ingredients.ingredients_id
+    let queryText = `SELECT user_ingredients.id, ingredients_spoon.name, ingredients_spoon.id AS user_ing_id
+FROM ingredients_spoon
+JOIN user_ingredients ON ingredients_spoon.id = user_ingredients.ingredients_id
 JOIN "user" ON "user".id = user_ingredients.user_id
 WHERE "user".id = $1`;
     pool

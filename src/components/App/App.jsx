@@ -12,13 +12,15 @@ import Nav from "../Nav/Nav";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
-import MyPantryPage from "../MyPantry/MyPantryPage";
+// import MyPantryPage from "../MyPantry/MyPantryPage";
 import Admin from "../Admin/Admin";
 import Recipes from "../Recipes/Recipes";
 import RecipePage from "../Recipes/RecipePage/RecipePage";
-import DefaultPantryToolTip from "../MyPantry/MyPantrySwitch/DefaultPantryToolTip";
+// import DefaultPantryToolTip from "../MyPantry/MyPantrySwitch/DefaultPantryToolTip";
+// import DefaultPantryToolTipSpoon from "../MyPantrySpoon/MyPantrySwitch/DefaultPantryToolTipSpoon"
 import "./App.css";
 import MyPantryPageSpoon from "../MyPantrySpoon/MyPantryPageSpoon";
+import RecipesSpoon from "../RecipesSpoon/RecipesSpoon";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,16 +46,16 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/recipes">
-            <Recipes />
+            <RecipesSpoon />
           </ProtectedRoute>
 
           <ProtectedRoute exact path="/admin">
             <Admin />
           </ProtectedRoute>
 
-          <ProtectedRoute exact path="/defaultpantry">
+          {/* <ProtectedRoute exact path="/defaultpantry">
             <DefaultPantryToolTip />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
 
           <ProtectedRoute exact path="/recipe/:id">
             <RecipePage />

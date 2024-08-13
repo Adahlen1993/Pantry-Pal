@@ -53,6 +53,7 @@ function UserIngredientsTable() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const userIngredients = useSelector((store) => store.userIngredients);
+  console.log(userIngredients);
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

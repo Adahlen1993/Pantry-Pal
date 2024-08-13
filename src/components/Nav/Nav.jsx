@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AppBar from "@mui/material/AppBar";
@@ -40,11 +41,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 function Nav() {
   const classes = useStyles();
   const user = useSelector((store) => store.user);
   const [anchorEl, setAnchorEl] = useState(null);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const userIngredients = useSelector((store) => store.userIngredients.map(ing => ing.name));
+
+
+  function fetchRecipesSpoon() {
+    dispatch({type:'FETCH_RECIPES_SPOON', payload: { ingredients: userIngredients } })
+  };
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -94,6 +104,7 @@ function Nav() {
               to="/recipes"
               color="inherit"
               className={classes.linkButton}
+              onClick={fetchRecipesSpoon}
             >
               Recipes
             </Button>

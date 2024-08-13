@@ -2,7 +2,7 @@ import { all } from "redux-saga/effects";
 import loginSaga from "./login.saga";
 import registrationSaga from "./registration.saga";
 import userSaga from "./user.saga";
-import ingredientsSaga from "./ingredients.saga";
+// import ingredientsSaga from "./ingredients.saga";
 import recipesSaga from "./recipes.saga";
 import userIngredientsSaga from "./user.ingredients.saga";
 import allUserSaga from "./all.user.saga";
@@ -10,6 +10,7 @@ import recipePage from "./recipe.page.saga";
 import allRecipesSaga from "./all.recipes.saga";
 import recipeTypeSaga from "./recipe.type.saga";
 import ingredientsSpoonSaga from "./ingredients.spoon.saga"
+import recipesSpoonSaga from "./recipes.spoon.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -23,7 +24,7 @@ export default function* rootSaga() {
     loginSaga(), // login saga is now registered
     registrationSaga(),
     userSaga(),
-    ingredientsSaga(),
+    // ingredientsSaga(),
     recipesSaga(),
     userIngredientsSaga(),
     allUserSaga(),
@@ -31,6 +32,7 @@ export default function* rootSaga() {
     allRecipesSaga(),
     recipeTypeSaga(),
     ingredientsSpoonSaga(),
+    recipesSpoonSaga(),
 
   ]);
 }

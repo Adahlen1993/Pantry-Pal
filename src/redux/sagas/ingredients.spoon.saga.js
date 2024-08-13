@@ -9,15 +9,16 @@ function* fetchIngredientsSpoon(action) {
     console.error(`Error getting ingredient`);
   }
 }
-// function* fetchSearchIngredients(action) {
-//   try {
-//      yield axios.put(`/api/ingredients/search`, action.payload);
-//      yield console.log(response.data);
-//      yield put({type: 'SET_SEARCH_INGREDIENTS'})
-//   }  catch (error) {
-//      console.error(`Error editing user`);
-//    }
-// }
+
+function* fetchSearchIngredients(action) {
+  try {
+     yield axios.put(`/api/ingredients/search`, action.payload);
+     yield console.log(response.data);
+     yield put({type: 'SET_SEARCH_INGREDIENTS'})
+  }  catch (error) {
+     console.error(`Error editing user`);
+   }
+}
 function* editIngredients(action) {
   try {
     yield axios.put(`/api/ingredients`, action.payload);
@@ -38,9 +39,9 @@ function* addIngredient(action) {
 
 function* ingredientsSaga() {
   yield takeLatest("FETCH_INGREDIENTS_SPOON", fetchIngredientsSpoon);
-//   yield takeLatest("ADD_INGREDIENT", addIngredient);
+  yield takeLatest("ADD_INGREDIENT", addIngredient);
 //   yield takeLatest("UPDATE_INGREDIENTS", editIngredients);
-  // yield takeLatest('FETCH_SEARCH_INGREDIENTS', fetchSearchIngredients);
+  yield takeLatest('FETCH_SEARCH_INGREDIENTS', fetchSearchIngredients);
 }
 
 export default ingredientsSaga;
