@@ -21,4 +21,22 @@ router.post('/spoonacular', async (req, res) => {  // POST request from frontend
     }
 });
 
+router.get('/recipe/:id', async (req, res) => {
+    const { id } = req.params;
+    const SPOONACULAR_API_KEY = process.env.SPOONACULAR_API_KEY;
+
+    try {
+        const response = await axios.get(`https://api.spoonacular.com/recipes/${id}/information`, {
+            params: {
+                apiKey: SPOONACULAR_API_KEY,
+            }
+        });
+        res.json(response.data);
+    } catch (error) {
+        console.error(`Error fetching recipe details from Spoonacular:`, error);
+        res.status(500).send('Server Error');
+    }
+});
+
+
 module.exports = router;

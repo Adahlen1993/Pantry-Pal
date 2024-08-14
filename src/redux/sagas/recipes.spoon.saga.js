@@ -1,14 +1,14 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
-function* fetchRecipesSpoon(action) {
-  try {
-    const response = yield axios.get("/api/recipes");
-    yield put({ type: "SET_RECIPES", payload: response.data });
-  } catch (error) {
-    console.error(`Error getting recipes`);
+function* fetchRecipesPage(action) {
+    try {
+      const response = yield axios.get(`/api/sprecipe/recipe/${action.payload}`);
+      yield put({ type: "SET_RECIPE_PAGE", payload: response.data });
+    } catch (error) {
+      yield put({ type: "RECIPE_PAGE_ERROR", payload: error.message });
+    }
   }
-}
 function* fetchUserRecipesSpoon(action) {
     try {
         const response = yield axios.post('/api/sprecipe/spoonacular', { ingredients: action.payload.ingredients });
@@ -50,7 +50,7 @@ function* addRecipesSpoon(action) {
 }
 
 function* recipesSpoonSaga() {
-  yield takeLatest("FETCH_RECIPES", fetchRecipesSpoon);
+  yield takeLatest("FETCH_RECIPE_PAGE", fetchRecipesPage);
   yield takeLatest("ADD_RECIPES", addRecipesSpoon);
   yield takeLatest("FETCH_ALL_RECIPES", fetchAllRecipesSpoon);
   yield takeLatest("FETCH_FILTERED_RECIPES", fetchFilteredRecipesSpoon);

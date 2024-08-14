@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import "../../App/App.css";
-import defaultpic from "../defaultpic/defaultpic_copy.png";
+import defaultpic from "../defaultpicspoon/defaultpic_copy.png";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -104,11 +104,11 @@ function RecipePage() {
         <CardMedia
           className={classes.media}
           image={recipe.image || defaultpic}
-          title={recipe.recipe_name}
+          title={recipe.title} // Updated from recipe_name to title
         />
         <Box>
           <Typography variant="h4" gutterBottom>
-            {recipe.recipe_name}
+            {recipe.title} {/* Updated from recipe_name to title */}
           </Typography>
           <Divider variant="middle" component="h2" />
           <Box className={classes.timeBox}>
@@ -117,21 +117,21 @@ function RecipePage() {
               component="div"
               className={classes.timeItem}
             >
-              Preparation Time: {recipe.preptime} min
+              Preparation Time: {recipe.preparationMinutes || "N/A"} min
             </Typography>
             <Typography
               variant="h5"
               component="div"
               className={classes.timeItem}
             >
-              Wait Time: {recipe.waittime} min
+              Cook Time: {recipe.cookingMinutes || "N/A"} min
             </Typography>
             <Typography
               variant="h5"
               component="div"
               className={classes.timeItem}
             >
-              Cook Time: {recipe.cooktime} min
+              Ready In: {recipe.readyInMinutes || "N/A"} min
             </Typography>
           </Box>
           <Box className={classes.section}>
@@ -143,7 +143,11 @@ function RecipePage() {
               component="div"
               className={classes.ingredients}
             >
-              {recipe.recipe_ingredients_list}
+              {recipe.extendedIngredients
+                ? recipe.extendedIngredients
+                    .map((ing) => `${ing.original}`)
+                    .join("\n")
+                : "No ingredients available"}
             </Typography>
           </Box>
           <Divider variant="middle" component="h4" />
@@ -155,9 +159,8 @@ function RecipePage() {
               variant="body1"
               component="div"
               className={classes.instructions}
-            >
-              {recipe.instructions}
-            </Typography>
+              dangerouslySetInnerHTML={{ __html: recipe.instructions }}
+            />
           </Box>
           <Divider variant="middle" component="h4" />
         </Box>

@@ -14,13 +14,14 @@ import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 // import MyPantryPage from "../MyPantry/MyPantryPage";
 import Admin from "../Admin/Admin";
-import Recipes from "../Recipes/Recipes";
-import RecipePage from "../Recipes/RecipePage/RecipePage";
+// import Recipes from "../Recipes/Recipes";
+// import RecipePage from "../Recipes/RecipePage/RecipePage";
 // import DefaultPantryToolTip from "../MyPantry/MyPantrySwitch/DefaultPantryToolTip";
 // import DefaultPantryToolTipSpoon from "../MyPantrySpoon/MyPantrySwitch/DefaultPantryToolTipSpoon"
 import "./App.css";
 import MyPantryPageSpoon from "../MyPantrySpoon/MyPantryPageSpoon";
 import RecipesSpoon from "../RecipesSpoon/RecipesSpoon";
+import RecipePage from "../RecipesSpoon/RecipePageSpoon/RecipePageSpoon";
 
 function App() {
   const dispatch = useDispatch();
